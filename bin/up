@@ -1,0 +1,11 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var program = require('commander');
+
+program
+  .usage('[options] [file ...]')
+  .parse(process.argv);
