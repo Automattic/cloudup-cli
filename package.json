@@ -12,6 +12,7 @@
   "dependencies": {
     "term-canvas": "0.0.5",
     "commander": "~1.1.1",
-    "superagent": "~0.12.2"
+    "superagent": "~0.12.2",
+    "max-component": "~1.0.0"
   }
 }

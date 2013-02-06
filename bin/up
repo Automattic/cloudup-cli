@@ -17,6 +17,19 @@ var canvas = new Canvas(size[0], size[1]);
 var ctx = canvas.getContext('2d');
 var view = new GridView;
 
+view.add({ name: 'fat bird.png' })
+view.add({ name: 'birds.png' })
+view.add({ name: 'lizard.png' })
+view.add({ name: 'lua.pdf' })
+view.add({ name: 'ark.png' })
+view.add({ name: 'pix' })
+view.add({ name: 'fat bird.png' })
+view.add({ name: 'birds.png' })
+view.add({ name: 'lizard.png' })
+view.add({ name: 'lua.pdf' })
+view.add({ name: 'ark.png' })
+view.add({ name: 'pix' })
+
 ctx.hideCursor();
 view.size(canvas.width, canvas.height);
 
@@ -28,7 +41,4 @@ process.on('SIGINT', function(){
 });
 
 ctx.showCursor();
-
-setInterval(function(){
-
-}, 1000);
+view.draw(ctx);
