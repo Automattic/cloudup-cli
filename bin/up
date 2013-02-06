@@ -4,8 +4,31 @@
  * Module dependencies.
  */
 
-var program = require('commander');
+var program = require('commander')
+  , GridView = require('../lib/grid')
+  , Canvas = require('term-canvas')
+  , size = process.stdout.getWindowSize();
 
 program
   .usage('[options] [file ...]')
   .parse(process.argv);
+
+var canvas = new Canvas(size[0], size[1]);
+var ctx = canvas.getContext('2d');
+var view = new GridView;
+
+ctx.hideCursor();
+view.size(canvas.width, canvas.height);
+
+process.on('SIGINT', function(){
+  ctx.reset();
+  process.nextTick(function(){
+    process.exit();
+  });
+});
+
+ctx.showCursor();
+
+setInterval(function(){
+
+}, 1000);
