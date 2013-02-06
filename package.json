@@ -2,8 +2,15 @@
   "name": "cloudup-cli",
   "version": "0.0.1",
   "description": "cloudup command-line executable",
-  "keywords": ["cloudup", "upload", "file", "files", "cli"],
+  "keywords": [
+    "cloudup",
+    "upload",
+    "file",
+    "files",
+    "cli"
+  ],
   "dependencies": {
-
+    "term-canvas": "0.0.5",
+    "commander": "~1.1.1"
   }
 }
