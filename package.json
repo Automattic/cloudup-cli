@@ -1,0 +1,9 @@
+{
+  "name": "cloudup-cli",
+  "version": "0.0.1",
+  "description": "cloudup command-line executable",
+  "keywords": ["cloudup", "upload", "file", "files", "cli"],
+  "dependencies": {
+
+  }
+}
