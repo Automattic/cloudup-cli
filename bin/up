@@ -11,3 +11,4 @@ program
   .usage('[options] [file ...]')
   .parse(process.argv);
 
+var view = up.view();
