@@ -20,9 +20,10 @@ var view = up.view();
 files.forEach(function(file){
   var item = new Item({ name: file });
   setInterval(function(){
-    item.progress++;
+    if (item.progress >= 100) return;
+    item.progress += 15;
     item.emit('progress');
-  }, 150);
+  }, 30);
   view.add(item);
 });
 
