@@ -18,7 +18,11 @@ var files = program.args;
 
 var view = up.view();
 files.forEach(function(file){
-  var item = { name: file };
+  var item = new Item({ name: file });
+  setInterval(function(){
+    item.progress++;
+    item.emit('progress');
+  }, 150);
   view.add(item);
 });
 
