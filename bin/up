@@ -11,9 +11,14 @@ program
   .usage('[options] [file ...]')
   .parse(process.argv);
 
-var view = up.view();
+// files
 
-view.add({ name: 'foo' })
-view.add({ name: 'bar' })
-view.add({ name: 'baz' })
+var files = program.args;
+
+var view = up.view();
+files.forEach(function(file){
+  var item = { name: file };
+  view.add(item);
+});
+
 view.draw();
