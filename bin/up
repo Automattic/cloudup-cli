@@ -12,3 +12,8 @@ program
   .parse(process.argv);
 
 var view = up.view();
+
+view.add({ name: 'foo' })
+view.add({ name: 'bar' })
+view.add({ name: 'baz' })
+view.draw();
