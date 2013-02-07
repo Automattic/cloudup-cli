@@ -20,7 +20,12 @@ var view = up.view();
 files.forEach(function(file){
   var item = new Item({ name: file });
   setInterval(function(){
-    if (item.progress >= 100) return;
+    if (item.progress >= 100) {
+      item.state = 'complete';
+      item.url = 'http://local.cloudup.com/jgKpTRh0mTXolUpSAAAe#1';
+      item.emit('state', 'complete');
+      return;
+    }
     item.progress += 15;
     item.emit('progress');
   }, 30);
