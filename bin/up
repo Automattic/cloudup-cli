@@ -10,6 +10,7 @@ var program = require('commander')
 
 program
   .usage('[options] [file ...]')
+  .option('-t, --title <name>', 'collection title name')
   .parse(process.argv);
 
 // files
