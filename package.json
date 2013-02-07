@@ -13,5 +13,6 @@
     "term-canvas": "0.0.5",
     "commander": "~1.1.1",
     "superagent": "~0.12.2"
-  }
+  },
+  "main": "lib/index.js"
 }

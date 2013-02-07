@@ -5,40 +5,9 @@
  */
 
 var program = require('commander')
-  , GridView = require('../lib/grid')
-  , Canvas = require('term-canvas')
-  , size = process.stdout.getWindowSize();
+  , up = require('..');
 
 program
   .usage('[options] [file ...]')
   .parse(process.argv);
 
-var canvas = new Canvas(size[0], size[1]);
-var ctx = canvas.getContext('2d');
-var view = new GridView;
-
-view.add({ name: 'fat bird.png' })
-view.add({ name: 'birds.png' })
-view.add({ name: 'lizard.png' })
-view.add({ name: 'lua.pdf' })
-view.add({ name: 'ark.png' })
-view.add({ name: 'pix' })
-view.add({ name: 'fat bird.png' })
-view.add({ name: 'birds.png' })
-view.add({ name: 'lizard.png' })
-view.add({ name: 'lua.pdf' })
-view.add({ name: 'ark.png' })
-view.add({ name: 'pix' })
-
-ctx.hideCursor();
-view.size(canvas.width, canvas.height);
-
-process.on('SIGINT', function(){
-  ctx.reset();
-  process.nextTick(function(){
-    process.exit();
-  });
-});
-
-ctx.showCursor();
-view.draw(ctx);
