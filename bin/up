@@ -5,32 +5,44 @@
  */
 
 var program = require('commander')
-  , Item = require('../lib/item')
+  , Cloudup = require('cloudup-client')
+  , path = require('path')
+  , basename = path.basename
   , up = require('..');
+
+// options
 
 program
   .usage('[options] [file ...]')
-  .option('-t, --title <name>', 'collection title name')
+  .option('-t, --title <name>', 'collection title name', 'Undefined')
   .parse(process.argv);
 
-// files
+// client
 
-var files = program.args;
-
-var view = up.view();
-files.forEach(function(file){
-  var item = new Item({ name: file });
-  setInterval(function(){
-    if (item.progress >= 100) {
-      item.state = 'complete';
-      item.url = 'http://local.cloudup.com/jgKpTRh0mTXolUpSAAAe#1';
-      item.emit('state', 'complete');
-      return;
-    }
-    item.progress += 15;
-    item.emit('progress');
-  }, 30);
-  view.add(item);
+var client = new Cloudup({
+  url: 'http://localhost:3000',
+  user: 'Ewald',
+  pass: 'Dev1'
 });
 
-view.draw();
+// collection
+
+var title = program.title;
+var files = program.args;
+var col = client.collection({ title: title });
+
+col.save(function(err){
+  if (err) throw err;
+  var view = up.view();
+
+  files.forEach(function(file){
+    var item = col.item({ title: basename(file) }); // TODO: remove title
+    item.file(file);
+    view.add(item);
+    item.save(function(err){
+      if (err) throw err;
+    });
+  });
+
+  view.draw();
+});
