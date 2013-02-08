@@ -55,6 +55,7 @@ files.forEach(function(file){
 
 col.save(function(err){
   if (err) throw err;
+  log('url', 'https://cloudup.com/' + col.uid);
   log('complete', ms(new Date - start));
   console.log();
 });
