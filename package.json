@@ -14,7 +14,8 @@
     "commander": "~1.1.1",
     "superagent": "~0.12.2",
     "cloudup-client": "git+ssh://git@github.com:LearnBoost/cloudup-client.git#0.0.2",
-    "ms": "~0.5.0"
+    "ms": "~0.5.0",
+    "printf": "0.0.5"
   },
   "main": "lib/index.js"
 }

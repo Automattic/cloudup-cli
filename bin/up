@@ -7,6 +7,7 @@
 var program = require('commander')
   , Cloudup = require('cloudup-client')
   , path = require('path')
+  , sprintf = require('printf')
   , basename = path.basename
   , ms = require('ms')
   , up = require('..');
@@ -53,5 +54,5 @@ col.save(function(err){
 });
 
 function log(key, str) {
-  console.log('   \033[36m%s\033[0m : %s', key, str);
+  process.stdout.write(sprintf('\033[36m%15s\033[0m : %s\n', key, str));
 }
