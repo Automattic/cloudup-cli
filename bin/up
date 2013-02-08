@@ -8,6 +8,7 @@ var program = require('commander')
   , Cloudup = require('cloudup-client')
   , path = require('path')
   , basename = path.basename
+  , ms = require('ms')
   , up = require('..');
 
 // options
@@ -30,19 +31,27 @@ var client = new Cloudup({
 var title = program.title;
 var files = program.args;
 var col = client.collection({ title: title });
+var start = new Date;
+
+// view
+
+console.log();
+log('collection', title);
+log('items', files.length);
+files.forEach(function(file){
+  var item = col.item({ title: basename(file) }); // TODO: remove title
+  item.file(file);
+  log('upload', file);
+});
+
+// save
 
 col.save(function(err){
   if (err) throw err;
-  var view = up.view();
-
-  files.forEach(function(file){
-    var item = col.item({ title: basename(file) }); // TODO: remove title
-    item.file(file);
-    view.add(item);
-    item.save(function(err){
-      if (err) throw err;
-    });
-  });
-
-  view.draw();
+  log('complete', ms(new Date - start));
+  console.log();
 });
+
+function log(key, str) {
+  console.log('   \033[36m%s\033[0m : %s', key, str);
+}
