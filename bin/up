@@ -41,8 +41,14 @@ log('collection', title);
 log('items', files.length);
 files.forEach(function(file){
   var item = col.item({ title: basename(file) }); // TODO: remove title
-  item.file(file);
-  log('upload', file);
+
+  if (isUrl(file)) {
+    item.url(file);
+    log('url', file);
+  } else {
+    item.file(file);
+    log('upload', file);
+  }
 });
 
 // save
@@ -55,4 +61,8 @@ col.save(function(err){
 
 function log(key, str) {
   process.stdout.write(sprintf('\033[36m%15s\033[0m : %s\n', key, str));
+}
+
+function isUrl(str) {
+  return ~str.indexOf('://');
 }
