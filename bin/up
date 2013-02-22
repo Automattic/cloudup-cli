@@ -8,8 +8,7 @@ var program = require('commander')
   , Cloudup = require('cloudup-client')
   , path = require('path')
   , sprintf = require('printf')
-  , basename = path.basename
-  , up = require('..');
+  , basename = path.basename;
 
 // remote
 

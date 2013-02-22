@@ -10,7 +10,6 @@
     "cli"
   ],
   "dependencies": {
-    "term-canvas": "0.0.5",
     "commander": "~1.1.1",
     "superagent": "~0.12.2",
     "cloudup-client": "git+ssh://git@github.com:LearnBoost/cloudup-client.git#0.0.3",
