@@ -9,7 +9,6 @@ var program = require('commander')
   , path = require('path')
   , sprintf = require('printf')
   , basename = path.basename
-  , ms = require('ms')
   , up = require('..');
 
 // remote
@@ -36,7 +35,6 @@ var client = new Cloudup({
 var title = program.title;
 var files = program.args;
 var col = client.collection({ title: title });
-var start = new Date;
 
 // view
 
@@ -51,13 +49,11 @@ files.forEach(function(file){
 
 col.save(function(err){
   if (err) throw err;
-  log('title', title);
-  log('url', '\033[90m' + remote + '/' + col.uid + '\033[0m');
+  log('collection', title + ' \033[90m' + remote + '/' + col.uid + '\033[0m');
   col.items.forEach(function(item){
     var ctx = item._file || item._url;
     log('item', ctx + ' \033[90m' + remote + '/' + col.uid + '/' + item.uid + '\033[0m');
   });
-  log('complete', ms(new Date - start));
   console.log();
 });
 
