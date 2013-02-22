@@ -35,6 +35,16 @@ var title = program.title;
 var files = program.args;
 var col = client.collection({ title: title });
 
+// items saved
+
+col.on('item saved', function(item){
+  var ctx = item._file
+    ? basename(item._file)
+    : item._url;
+
+  log(ctx, remote + '/' + col.uid + '/' + item.uid);
+});
+
 // view
 
 console.log();
@@ -48,12 +58,7 @@ files.forEach(function(file){
 
 col.save(function(err){
   if (err) throw err;
-  if ('Undefined' == title) title = 'collection';
-  log(title, remote + '/' + col.uid);
-  col.items.forEach(function(item){
-    var ctx = item._file || item._url;
-    log(ctx, remote + '/' + col.uid + '/' + item.uid);
-  });
+  log('collection', remote + '/' + col.uid);
   console.log();
 });
 
