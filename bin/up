@@ -12,6 +12,10 @@ var program = require('commander')
   , ms = require('ms')
   , up = require('..');
 
+// remote
+
+var remote = process.env.CLOUDUP_CLI_REMOTE || 'https://cloudup.com';
+
 // options
 
 program
@@ -48,10 +52,10 @@ files.forEach(function(file){
 col.save(function(err){
   if (err) throw err;
   log('title', title);
-  log('url', '\033[90mhttps://cloudup.com/' + col.uid + '\033[0m');
+  log('url', '\033[90m' + remote + '/' + col.uid + '\033[0m');
   col.items.forEach(function(item){
     var ctx = item._file || item._url;
-    log('item', ctx + ' \033[90mhttps://cloudup.com/' + col.uid + '/' + item.uid + '\033[0m');
+    log('item', ctx + ' \033[90m' + remote + '/' + col.uid + '/' + item.uid + '\033[0m');
   });
   log('complete', ms(new Date - start));
   console.log();
