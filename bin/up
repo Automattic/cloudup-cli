@@ -49,10 +49,11 @@ files.forEach(function(file){
 
 col.save(function(err){
   if (err) throw err;
-  log('collection', title + ' \033[90m' + remote + '/' + col.uid + '\033[0m');
+  if ('Undefined' == title) title = 'collection';
+  log(title, remote + '/' + col.uid);
   col.items.forEach(function(item){
     var ctx = item._file || item._url;
-    log('item', ctx + ' \033[90m' + remote + '/' + col.uid + '/' + item.uid + '\033[0m');
+    log(ctx, remote + '/' + col.uid + '/' + item.uid);
   });
   console.log();
 });
