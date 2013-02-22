@@ -41,14 +41,8 @@ log('title', title);
 log('items', files.length);
 files.forEach(function(file){
   var item = col.item({ title: basename(file) }); // TODO: remove title
-
-  if (isUrl(file)) {
-    item.url(file);
-    log('url', file);
-  } else {
-    item.file(file);
-    log('upload', file);
-  }
+  if (isUrl(file)) return item.url(file);
+  item.file(file);
 });
 
 // save
