@@ -59,7 +59,7 @@ col.save(function(err){
 });
 
 function log(key, str) {
-  process.stdout.write(sprintf('\033[36m%15s\033[0m : %s\n', key, str));
+  process.stdout.write(sprintf('\033[36m%20s\033[0m : %s\n', key, str));
 }
 
 function isUrl(str) {
