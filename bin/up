@@ -42,7 +42,7 @@ col.on('item saved', function(item){
     ? basename(item._file)
     : item._url;
 
-  log(ctx, remote + '/' + col.uid + '/' + item.uid);
+  log(truncate(ctx), remote + '/' + col.uid + '/' + item.uid);
 });
 
 // view
@@ -62,8 +62,14 @@ col.save(function(err){
   console.log();
 });
 
+function truncate(str) {
+  var w = 20;
+  if (str.length < w) return str;
+  return str.slice(0, w) + '…';
+}
+
 function log(key, str) {
-  process.stdout.write(sprintf('\033[36m%20s\033[0m : %s\n', key, str));
+  process.stdout.write(sprintf('\033[36m%25s\033[0m : %s\n', key, str));
 }
 
 function isUrl(str) {
