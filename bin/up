@@ -37,7 +37,7 @@ var start = new Date;
 // view
 
 console.log();
-log('collection', title);
+log('title', title);
 log('items', files.length);
 files.forEach(function(file){
   var item = col.item({ title: basename(file) }); // TODO: remove title
@@ -55,7 +55,11 @@ files.forEach(function(file){
 
 col.save(function(err){
   if (err) throw err;
-  log('url', 'https://cloudup.com/' + col.uid);
+  col.queue.forEach(function(item){
+    var ctx = item._file || item._url;
+    log('item', ctx + ': https://cloudup.com/' + col.uid + '/' + item.uid);
+  });
+  log('collection', 'https://cloudup.com/' + col.uid);
   log('complete', ms(new Date - start));
   console.log();
 });
