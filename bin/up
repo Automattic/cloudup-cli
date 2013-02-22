@@ -55,7 +55,7 @@ files.forEach(function(file){
 
 col.save(function(err){
   if (err) throw err;
-  col.queue.forEach(function(item){
+  col.items.forEach(function(item){
     var ctx = item._file || item._url;
     log('item', ctx + ': https://cloudup.com/' + col.uid + '/' + item.uid);
   });
