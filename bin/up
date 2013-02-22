@@ -37,8 +37,6 @@ var start = new Date;
 // view
 
 console.log();
-log('title', title);
-log('items', files.length);
 files.forEach(function(file){
   var item = col.item({ title: basename(file) }); // TODO: remove title
   if (isUrl(file)) return item.url(file);
@@ -49,11 +47,12 @@ files.forEach(function(file){
 
 col.save(function(err){
   if (err) throw err;
+  log('title', title);
+  log('url', '\033[90mhttps://cloudup.com/' + col.uid + '\033[0m');
   col.items.forEach(function(item){
     var ctx = item._file || item._url;
-    log('item', ctx + ': https://cloudup.com/' + col.uid + '/' + item.uid);
+    log('item', ctx + ' \033[90mhttps://cloudup.com/' + col.uid + '/' + item.uid + '\033[0m');
   });
-  log('collection', 'https://cloudup.com/' + col.uid);
   log('complete', ms(new Date - start));
   console.log();
 });
