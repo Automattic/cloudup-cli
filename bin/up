@@ -69,7 +69,7 @@ function truncate(str) {
 }
 
 function log(key, str) {
-  process.stdout.write(sprintf('\033[36m%25s\033[0m : %s\n', key, str));
+  process.stdout.write(sprintf('\033[36m%25s\033[0m : \033[90m%s\033[m\n', key, str));
 }
 
 function isUrl(str) {
