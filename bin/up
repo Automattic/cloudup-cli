@@ -24,7 +24,7 @@ program
 // client
 
 var client = new Cloudup({
-  url: 'http://localhost:3000',
+  url: remote,
   user: 'Ewald',
   pass: 'Dev1'
 });
