@@ -12,7 +12,7 @@ var program = require('commander')
 
 // remote
 
-var remote = process.env.CLOUDUP_CLI_REMOTE || 'https://cloudup.com';
+var remote = process.env.CLOUDUP_REMOTE || 'https://cloudup.com';
 
 // options
 
@@ -25,8 +25,8 @@ program
 
 var client = new Cloudup({
   url: remote,
-  user: 'Ewald',
-  pass: 'Dev1'
+  user: procoess.env.CLOUDUP_USER,
+  pass: procoess.env.CLOUDUP_PASS
 });
 
 // collection
