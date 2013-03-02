@@ -25,8 +25,8 @@ program
 
 var client = new Cloudup({
   url: remote,
-  user: procoess.env.CLOUDUP_USER,
-  pass: procoess.env.CLOUDUP_PASS
+  user: process.env.CLOUDUP_USER,
+  pass: process.env.CLOUDUP_PASS
 });
 
 // collection
