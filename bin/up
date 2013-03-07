@@ -37,7 +37,7 @@ var col = client.collection({ title: title });
 
 // items saved
 
-col.on('item saved', function(item){
+col.on('item uploaded', function(item){
   var ctx = item._file
     ? basename(item._file)
     : item._url;
