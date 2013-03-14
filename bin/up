@@ -14,13 +14,19 @@ var program = require('commander')
 program
   .usage('[options] [file ...]')
   .option('-t, --title <name>', 'collection title name', 'Undefined')
+  .option('-j, --json', 'output json')
   .parse(process.argv);
+
+// reporter
+
+var reporter = 'console';
+if (program.json) reporter = 'json';
 
 // collection
 
 var files = program.args;
 var title = program.title;
-var col = up.collection({ title: title });
+var col = up.collection({ title: title, reporter: reporter });
 
 // files
 

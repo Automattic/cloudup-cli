@@ -4,8 +4,7 @@
  * Module dependencies.
  */
 
-var Cloudup = require('cloudup-client')
-  , Console = require('./lib/console');
+var Cloudup = require('cloudup-client');
 
 /**
  * Cloudup remote.
@@ -33,7 +32,8 @@ var client = new Cloudup({
 
 exports.collection = function(options){
   var col = client.collection(options);
-  var reporter = new Console(col, { remote: remote });
+  var Reporter = require('./lib/' + options.reporter);
+  var reporter = new Reporter(col, { remote: remote });
   return col;
 };
 
