@@ -1,11 +1,11 @@
 
-var JSONStream = require('JSONStream');
+var jstream = require('jstream');
 var spawn = require('child_process').spawn;
 var assert = require('better-assert');
 
 describe('up --json-stream', function(){
   it('should stream events', function(done){
-    var parser = JSONStream.parse([true]);
+    var parser = jstream('*');
     var proc = spawn('bin/up', ['--json-stream', 'bin/up']);
     proc.stdout.pipe(parser);
     parser.on('data', function(e){
