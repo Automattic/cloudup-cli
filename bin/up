@@ -87,7 +87,17 @@ col.save(function(err){
 
 process.on('exit', showCursor);
 process.on('SIGINT', showCursor);
+process.on('SIGINT', clear);
 process.on('SIGINT', process.exit.bind(null, 1));
+
+/**
+ * Clear the term.
+ */
+
+function clear() {
+  process.stdout.write('\033[0m\033[1J');
+  process.stdout.write('\033[J');
+}
 
 /**
  * Hide the cursor.
