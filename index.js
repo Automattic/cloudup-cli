@@ -52,6 +52,7 @@ exports.collection = function(options){
 
   // done
   col.on('end', function(){
+    move(0, 2 + y);
     log('collection', remote + '/' + col.uid);
     console.log();
   });
