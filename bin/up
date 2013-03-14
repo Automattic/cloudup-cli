@@ -6,8 +6,8 @@
 
 var program = require('commander')
   , Cloudup = require('cloudup-client')
-  , path = require('path')
   , sprintf = require('printf')
+  , path = require('path')
   , basename = path.basename;
 
 // remote
@@ -35,14 +35,32 @@ var title = program.title;
 var files = program.args;
 var col = client.collection({ title: title });
 
-// items saved
+// item progress
 
-col.on('item uploaded', function(item){
-  var ctx = item._file
-    ? basename(item._file)
-    : item._url;
+var y = 0;
 
-  log(truncate(ctx), remote + '/' + col.uid + '/' + item.uid);
+col.on('item', function(item){
+  var cy = y++;
+
+  item.on('progress', function(e){
+    var n = e.percent | 0;
+
+    var ctx = item._file
+      ? basename(item._file)
+      : item._url;
+
+    move(0, 3 + cy);
+    log(truncate(ctx), n + '%');
+  });
+
+  item.on('end', function(){
+    var ctx = item._file
+      ? basename(item._file)
+      : item._url;
+
+    move(0, 3 + cy);
+    log(truncate(ctx), remote + '/' + col.uid + '/' + item.uid);
+  });
 });
 
 // view
@@ -61,6 +79,12 @@ col.save(function(err){
   log('collection', remote + '/' + col.uid);
   console.log();
 });
+
+function move(x, y) {
+  x = Math.round(x);
+  y = Math.round(y);
+  process.stdout.write('\033[' + y + ';' + x + 'H');
+}
 
 function truncate(str) {
   var w = 20;
