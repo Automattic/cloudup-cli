@@ -42,6 +42,15 @@ var y = 0;
 col.on('item', function(item){
   var cy = y++;
 
+  process.nextTick(function(){
+    var ctx = item._file
+      ? basename(item._file)
+      : item._url;
+
+    move(0, 3 + cy);
+    log(truncate(ctx), '0%');
+  });
+
   item.on('progress', function(e){
     var n = e.percent | 0;
 
