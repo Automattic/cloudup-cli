@@ -16,12 +16,14 @@ program
   .option('-t, --title <name>', 'collection title name', 'Undefined')
   .option('-d, --direct', 'output direct links')
   .option('-j, --json', 'output json')
+  .option('-J, --json-stream', 'output streaming json')
   .parse(process.argv);
 
 // reporter
 
 var reporter = 'console';
 if (program.json) reporter = 'json';
+if (program.jsonStream) reporter = 'json-stream';
 
 // collection
 
