@@ -50,10 +50,15 @@ exports.collection = function(options){
   clear();
   hideCursor();
 
-  // done
-  col.on('end', function(){
+  // saved
+  col.on('save', function(){
     move(0, 2 + y);
     log('collection', remote + '/' + col.uid);
+  });
+
+  // done
+  col.on('end', function(){
+    move(0, 3 + y);
     console.log();
   });
 
