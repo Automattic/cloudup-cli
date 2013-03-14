@@ -5,7 +5,7 @@
  */
 
 var Cloudup = require('cloudup-client')
-  , console = require('./lib/console');
+  , Console = require('./lib/console');
 
 /**
  * Cloudup remote.
@@ -33,7 +33,7 @@ var client = new Cloudup({
 
 exports.collection = function(options){
   var col = client.collection(options);
-  console(col);
+  var reporter = new Console(col, { remote: remote });
   return col;
 };
 
