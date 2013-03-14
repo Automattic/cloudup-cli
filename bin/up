@@ -49,18 +49,18 @@ col.on('item', function(item){
   }
 
   process.nextTick(function(){
-    move(0, 3 + cy);
+    move(0, 2 + cy);
     log(truncate(ctx()), '0%');
   });
 
   item.on('progress', function(e){
     var n = e.percent | 0;
-    move(0, 3 + cy);
+    move(0, 2 + cy);
     log(truncate(ctx()), n + '%');
   });
 
   item.on('end', function(){
-    move(0, 3 + cy);
+    move(0, 2 + cy);
     log(truncate(ctx()), remote + '/' + col.uid + '/' + item.uid);
   });
 });
@@ -76,6 +76,7 @@ files.forEach(function(file){
 
 // save
 
+clear();
 hideCursor();
 col.save(function(err){
   if (err) throw err;
