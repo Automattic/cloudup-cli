@@ -76,11 +76,34 @@ files.forEach(function(file){
 
 // save
 
+hideCursor();
 col.save(function(err){
   if (err) throw err;
   log('collection', remote + '/' + col.uid);
   console.log();
 });
+
+// restore
+
+process.on('exit', showCursor);
+process.on('SIGINT', showCursor);
+process.on('SIGINT', process.exit.bind(null, 1));
+
+/**
+ * Hide the cursor.
+ */
+
+function hideCursor(){
+  process.stdout.write('\033[?25l');
+}
+
+/**
+ * Show the cursor.
+ */
+
+function showCursor(){
+  process.stdout.write('\033[?25h');
+}
 
 /**
  * Move to (x, y).
