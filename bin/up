@@ -14,6 +14,7 @@ var program = require('commander')
 program
   .usage('[options] [file ...]')
   .option('-t, --title <name>', 'collection title name', 'Undefined')
+  .option('-d, --direct', 'output direct links')
   .option('-j, --json', 'output json')
   .parse(process.argv);
 
@@ -26,7 +27,11 @@ if (program.json) reporter = 'json';
 
 var files = program.args;
 var title = program.title;
-var col = up.collection({ title: title, reporter: reporter });
+var col = up.collection({
+  title: title,
+  reporter: reporter,
+  direct: program.direct
+});
 
 // files
 
