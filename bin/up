@@ -5,14 +5,9 @@
  */
 
 var program = require('commander')
-  , Cloudup = require('cloudup-client')
-  , sprintf = require('printf')
   , path = require('path')
-  , basename = path.basename;
-
-// remote
-
-var remote = process.env.CLOUDUP_REMOTE || 'https://cloudup.com';
+  , basename = path.basename
+  , up = require('..');
 
 // options
 
@@ -21,53 +16,14 @@ program
   .option('-t, --title <name>', 'collection title name', 'Undefined')
   .parse(process.argv);
 
-// client
-
-var client = new Cloudup({
-  url: remote,
-  user: process.env.CLOUDUP_USER,
-  pass: process.env.CLOUDUP_PASS
-});
-
 // collection
 
 var files = program.args;
 var title = program.title;
-var col = client.collection({ title: title });
+var col = up.collection({ title: title });
 
-// item progress
+// files
 
-var y = 0;
-
-col.on('item', function(item){
-  var cy = y++;
-
-  function ctx() {
-    return item._file
-      ? basename(item._file)
-      : item._url;
-  }
-
-  process.nextTick(function(){
-    move(0, 2 + cy);
-    log(truncate(ctx()), '0%');
-  });
-
-  item.on('progress', function(e){
-    var n = e.percent | 0;
-    move(0, 2 + cy);
-    log(truncate(ctx()), n + '%');
-  });
-
-  item.on('end', function(){
-    move(0, 2 + cy);
-    log(truncate(ctx()), remote + '/' + col.uid + '/' + item.uid);
-  });
-});
-
-// view
-
-console.log();
 files.forEach(function(file){
   var item = col.item({ title: basename(file) }); // TODO: remove title
   if (isUrl(file)) return item.url(file);
@@ -76,73 +32,9 @@ files.forEach(function(file){
 
 // save
 
-clear();
-hideCursor();
 col.save(function(err){
   if (err) throw err;
-  log('collection', remote + '/' + col.uid);
-  console.log();
 });
-
-// restore
-
-process.on('exit', showCursor);
-process.on('SIGINT', showCursor);
-process.on('SIGINT', clear);
-process.on('SIGINT', process.exit.bind(null, 1));
-
-/**
- * Clear the term.
- */
-
-function clear() {
-  process.stdout.write('\033[0m\033[1J');
-  process.stdout.write('\033[J');
-}
-
-/**
- * Hide the cursor.
- */
-
-function hideCursor(){
-  process.stdout.write('\033[?25l');
-}
-
-/**
- * Show the cursor.
- */
-
-function showCursor(){
-  process.stdout.write('\033[?25h');
-}
-
-/**
- * Move to (x, y).
- */
-
-function move(x, y) {
-  x = Math.round(x);
-  y = Math.round(y);
-  process.stdout.write('\033[' + y + ';' + x + 'H');
-}
-
-/**
- * Truncate `str`.
- */
-
-function truncate(str) {
-  var w = 20;
-  if (str.length < w) return str;
-  return str.slice(0, w) + '…';
-}
-
-/**
- * Log `key` / `str`.
- */
-
-function log(key, str) {
-  process.stdout.write(sprintf('\033[36m%25s\033[0m : \033[90m%s\033[m\n', key, str));
-}
 
 /**
  * Check if `str` is a url.
