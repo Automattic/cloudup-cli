@@ -38,6 +38,25 @@ $ up *.png
 
 ```
 
+  Assigning a __title__ to the collection:
+
+```
+$ up albums/ferrets/*.png -t Ferrets
+```
+
+  Output direct links to files instead of the item pages:
+
+```
+$ up ferrets/*.png -d
+
+      tobi.png : http://i.cloudup.com/VRa6J55IV.png
+      loki.png : http://i.cloudup.com/VRa6J55IV.png
+      jane.png : http://i.cloudup.com/VRa6J55IV.png
+      abby.png : http://i.cloudup.com/VRa6J55IV.png
+    collection : https://cloudup.com/8bQSlwj72B
+
+```
+
 ## Tips
 
   Collection and item links that output to stdout may be opened
