@@ -7,7 +7,9 @@
 var program = require('commander')
   , path = require('path')
   , basename = path.basename
-  , up = require('..');
+  , uid = require('uid2')
+  , up = require('..')
+  , fs = require('fs')
 
 // options
 
@@ -17,6 +19,7 @@ program
   .option('-d, --direct', 'output direct links')
   .option('-j, --json', 'output json')
   .option('-J, --json-stream', 'output streaming json')
+  .option('-f, --filename <str>', 'assign filename to stdin')
   .parse(process.argv);
 
 // reporter
@@ -34,6 +37,23 @@ var col = up.collection({
   reporter: reporter,
   direct: program.direct
 });
+
+// stdin
+
+if (!files.length) {
+  var out = fs.createWriteStream('/tmp/up-' + uid(10));
+  process.stdin.pipe(out);
+  process.stdin.resume();
+  process.stdin.on('end', function(){
+    var file = program.filename || out.path;
+    var item = col.item({ title: program.title, filename: file });
+    item.file(out.path);
+    col.save(function(err){
+      if (err) throw err;
+    });
+  });
+  return;
+}
 
 // files
 
