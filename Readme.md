@@ -44,7 +44,7 @@ $ up *.png
 $ up albums/ferrets/*.png -t Ferrets
 ```
 
-  Output direct links to files instead of the item pages:
+  Output __direct__ links to files instead of the item pages:
 
 ```
 $ up ferrets/*.png -d
@@ -55,6 +55,26 @@ $ up ferrets/*.png -d
       abby.png : http://i.cloudup.com/VRa6J55IV.png
     collection : https://cloudup.com/8bQSlwj72B
 
+```
+
+  Upload from __stdin__:
+
+```
+$ cat some.png | up
+```
+
+
+  Upload from __stdin__ with an item __title__:
+
+```
+$ cat some.png | up -t 'Cat Picture'
+```
+
+
+  Upload from __stdin__ with an item __title__ and __filename__:
+
+```
+$ git diff | up -t 'Awesome Diff' -f awesome.diff
 ```
 
 ## Tips
