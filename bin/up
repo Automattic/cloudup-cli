@@ -47,7 +47,7 @@ if (!files.length) {
   process.stdin.on('end', function(){
     var file = program.filename || out.path;
     var title = 'Untitled' == program.title ? null : program.title;
-    var item = col.item({ title: title filename: file });
+    var item = col.item({ title: title, filename: file });
     item.file(out.path);
     col.save(function(err){
       if (err) throw err;
@@ -59,7 +59,7 @@ if (!files.length) {
 // files
 
 files.forEach(function(file){
-  var item = col.item({ title: basename(file) }); // TODO: remove title
+  var item = col.item();
   if (isUrl(file)) return item.url(file);
   item.file(file);
 });
