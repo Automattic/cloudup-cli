@@ -77,6 +77,60 @@ $ cat some.png | up -t 'Cat Picture'
 $ git diff | up -t 'Awesome Diff' -f awesome.diff
 ```
 
+  __JSON__ output:
+
+```
+$ up infrared*.png --json --title "Infrared Photos"
+
+{
+  "uid": "pDLCCKAnjL",
+  "title": "Infrared Photos",
+  "items": [
+    {
+      "uid": "fHWE8FMBmK",
+      "title": "nfrared 2",
+      "filename": "infrared-2.png",
+      "updated_at": "2013-03-15T16:28:09.685Z",
+      "created_at": "2013-03-15T16:28:09.685Z",
+      "remote": "fHWE8FMBmK.png"
+    },
+    {
+      "uid": "aQY6KVPxDM",
+      "title": "nfrared 3",
+      "filename": "infrared-3.png",
+      "updated_at": "2013-03-15T16:28:09.651Z",
+      "created_at": "2013-03-15T16:28:09.651Z",
+      "remote": "aQY6KVPxDM.png"
+    },
+    {
+      "uid": "bL5YnbjOHU",
+      "title": "nfrared 4",
+      "filename": "infrared-4.png",
+      "updated_at": "2013-03-15T16:28:09.597Z",
+      "created_at": "2013-03-15T16:28:09.597Z",
+      "remote": "bL5YnbjOHU.png"
+    },
+    {
+      "uid": "CihksaRXTB",
+      "title": "nfrared",
+      "filename": "infrared.png",
+      "updated_at": "2013-03-15T16:28:09.664Z",
+      "created_at": "2013-03-15T16:28:09.664Z",
+      "remote": "CihksaRXTB.png"
+    }
+  ]
+}
+```
+
+  Streaming __JSON__ output:
+
+```
+$ up *.png --json-stream
+
+
+
+```
+
 ## Tips
 
   Collection and item links that output to stdout may be opened
