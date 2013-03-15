@@ -1,0 +1,13 @@
+
+0.1.0 / 2013-03-15
+==================
+
+  * add "item saved" event to json stream
+  * add stdin support. Closes #3
+  * add fatal() on uncaughtException and reset cursor
+  * add --json-stream reporting
+  * add --direct support
+  * add --json
+  * add collection output asap. Closes #10
+  * add showing / hiding of cursor
+  * add progress reporting
