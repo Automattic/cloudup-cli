@@ -11,7 +11,7 @@
   ],
   "dependencies": {
     "commander": "~1.1.1",
-    "cloudup-client": "0.2.0",
+    "cloudup-client": "0.3.0",
     "ms": "~0.5.0",
     "printf": "0.1.0",
     "jstream": "visionmedia/jstream",
