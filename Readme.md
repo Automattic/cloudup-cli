@@ -125,10 +125,20 @@ $ up infrared*.png --json --title "Infrared Photos"
   Streaming __JSON__ output:
 
 ```
-$ up *.png --json-stream
-
-
-
+up --json-stream lib/*.js
+[
+  ["collection saved", {"uid":"hoogHRk95x","title":"Undefined","url":"https://cloudup.com/hoogHRk95x"}],
+  ["item saved", {"uid":"s3ALkid6oU","title":"Lib console","filename":"lib/console.js","updated_at":"2013-03-15T16:34:13.217Z","created_at":"2013-03-15T16:34:13.217Z"}],
+  ["item saved", {"uid":"iyXdLtihcK","title":"Lib json","filename":"lib/json.js","updated_at":"2013-03-15T16:34:13.240Z","created_at":"2013-03-15T16:34:13.240Z"}],
+  ["item saved", {"uid":"0h30zHVZaj","title":"Lib json stream","filename":"lib/json-stream.js","updated_at":"2013-03-15T16:34:13.275Z","created_at":"2013-03-15T16:34:13.275Z"}],
+  ["item progress", {"total":2900,"sent":2900,"remaining":0,"percent":100,"uid":"s3ALkid6oU"}],
+  ["item progress", {"total":1216,"sent":1216,"remaining":0,"percent":100,"uid":"0h30zHVZaj"}],
+  ["item progress", {"total":385,"sent":385,"remaining":0,"percent":100,"uid":"iyXdLtihcK"}],
+  ["item uploaded", {"uid":"s3ALkid6oU","title":"Lib console","filename":"lib/console.js","updated_at":"2013-03-15T16:34:13.217Z","created_at":"2013-03-15T16:34:13.217Z","remote":"s3ALkid6oU.js"}],
+  ["item uploaded", {"uid":"0h30zHVZaj","title":"Lib json stream","filename":"lib/json-stream.js","updated_at":"2013-03-15T16:34:13.275Z","created_at":"2013-03-15T16:34:13.275Z","remote":"0h30zHVZaj.js"}],
+  ["item uploaded", {"uid":"iyXdLtihcK","title":"Lib json","filename":"lib/json.js","updated_at":"2013-03-15T16:34:13.240Z","created_at":"2013-03-15T16:34:13.240Z","remote":"iyXdLtihcK.js"}],
+  ["end"]
+]
 ```
 
 ## Tips
