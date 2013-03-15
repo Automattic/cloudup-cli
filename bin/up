@@ -15,7 +15,7 @@ var program = require('commander')
 
 program
   .usage('[options] [file ...]')
-  .option('-t, --title <name>', 'collection title name', 'Undefined')
+  .option('-t, --title <name>', 'collection title name', 'Untitled')
   .option('-d, --direct', 'output direct links')
   .option('-j, --json', 'output json')
   .option('-J, --json-stream', 'output streaming json')
@@ -46,7 +46,8 @@ if (!files.length) {
   process.stdin.resume();
   process.stdin.on('end', function(){
     var file = program.filename || out.path;
-    var item = col.item({ title: program.title, filename: file });
+    var title = 'Untitled' == program.title ? null : program.title;
+    var item = col.item({ title: title filename: file });
     item.file(out.path);
     col.save(function(err){
       if (err) throw err;
