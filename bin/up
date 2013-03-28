@@ -72,7 +72,7 @@ files.forEach(function(file){
   var i = item.file(file);
   i.on('save', function(){
     thumb(i._file, { width: size, height: size }, function(err, path){
-      if (err) return;
+      if (err || !path) return;
       i.thumb(path);
     });
   });
