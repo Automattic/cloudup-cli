@@ -14,7 +14,7 @@ describe('up --json-stream', function(){
       switch (type) {
         case 'collection saved':
           assert(obj.title);
-          assert(obj.uid);
+          assert(obj.id);
           assert(obj.url);
           break;
         case 'item progress':
@@ -24,7 +24,7 @@ describe('up --json-stream', function(){
           assert('number' == typeof obj.percent);
           break;
         case 'item saved':
-          assert(obj.uid);
+          assert(obj.id);
           assert(obj.title);
           assert(obj.filename);
           assert(obj.created_at);

@@ -17,7 +17,7 @@ var program = require('commander')
 program
   .version(pkg.version)
   .usage('[options] [file ...]')
-  .option('-t, --title <name>', 'collection title name', 'Untitled')
+  .option('-t, --title <name>', 'stream title name', 'Untitled')
   .option('-d, --direct', 'output direct links')
   .option('-j, --json', 'output json')
   .option('-J, --json-stream', 'output streaming json')
@@ -30,11 +30,11 @@ var reporter = 'console';
 if (program.json) reporter = 'json';
 if (program.jsonStream) reporter = 'json-stream';
 
-// collection
+// stream
 
 var files = program.args;
 var title = program.title;
-var col = up.collection({
+var col = up.stream({
   title: title,
   reporter: reporter,
   direct: program.direct

@@ -10,7 +10,7 @@ var Cloudup = require('cloudup-client');
  * Cloudup remote.
  */
 
-var remote = process.env.CLOUDUP_REMOTE || 'https://cloudup.com';
+var remote = process.env.CLOUDUP_REMOTE || 'https://api.cloudup.com';
 
 /**
  * Cloudup client.
@@ -23,18 +23,18 @@ var client = new Cloudup({
 });
 
 /**
- * Upload collection.
+ * Upload stream.
  *
  * @param {Object} options
- * @return {Collection}
+ * @return {Stream}
  * @api public
  */
 
-exports.collection = function(options){
-  var col = client.collection(options);
+exports.stream = function(options){
+  var stream = client.stream(options);
   var Reporter = require('./lib/' + options.reporter);
-  var reporter = new Reporter(col, { remote: remote, direct: options.direct });
-  return col;
+  var reporter = new Reporter(stream, { remote: remote, direct: options.direct });
+  return stream;
 };
 
 
