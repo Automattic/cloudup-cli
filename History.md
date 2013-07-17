@@ -1,4 +1,11 @@
 
+0.2.0 / 2013-03-28 
+==================
+
+  * add thumbnail support
+  * update generated item urls
+  * update cloudup-client
+
 0.1.1 / 2013-03-25
 ==================
 

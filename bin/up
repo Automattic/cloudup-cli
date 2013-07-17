@@ -6,6 +6,7 @@
 
 var program = require('commander')
   , pkg = require('../package')
+  , thumb = require('osthumb')
   , path = require('path')
   , basename = path.basename
   , uid = require('uid2')
@@ -22,7 +23,12 @@ program
   .option('-j, --json', 'output json')
   .option('-J, --json-stream', 'output streaming json')
   .option('-f, --filename <str>', 'assign filename to stdin')
+  .option('-s, --thumb-size <n>', 'thumbnail size in pixels [400]', 400)
   .parse(process.argv);
+
+// size
+
+var size = program.thumbSize;
 
 // reporter
 
@@ -63,7 +69,13 @@ if (!files.length) {
 files.forEach(function(file){
   var item = col.item();
   if (isUrl(file)) return item.url(file);
-  item.file(file);
+  var i = item.file(file);
+  i.on('save', function(){
+    thumb(i._file, { width: size, height: size }, function(err, path){
+      if (err || !path) return;
+      i.thumb(path);
+    });
+  });
 });
 
 // save
