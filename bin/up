@@ -36,14 +36,31 @@ var reporter = 'console';
 if (program.json) reporter = 'json';
 if (program.jsonStream) reporter = 'json-stream';
 
+// config
+
+try {
+  var conf = require(process.env.HOME + '/.cloudup.json');
+} catch (err) {
+  throw new Error('failed to load ~/.cloudup.json');
+}
+
+// ensure user/pass
+
+if (!conf.user) throw new Error('"user" config required');
+if (!conf.pass) throw new Error('"pass" config required');
+
 // stream
 
 var files = program.args;
 var title = program.title;
+
 var col = up.stream({
   title: title,
   reporter: reporter,
-  direct: program.direct
+  direct: program.direct,
+  remote: conf.remote,
+  user: conf.user,
+  pass: conf.pass
 });
 
 // stdin
