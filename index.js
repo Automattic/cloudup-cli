@@ -32,6 +32,7 @@ var client = new Cloudup({
 
 exports.stream = function(options){
   var stream = client.stream(options);
+  if (!options.reporter) return stream;
   var Reporter = require('./lib/' + options.reporter);
   var reporter = new Reporter(stream, { remote: remote, direct: options.direct });
   return stream;

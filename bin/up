@@ -24,6 +24,7 @@ program
   .option('-J, --json-stream', 'output streaming json')
   .option('-f, --filename <str>', 'assign filename to stdin')
   .option('-s, --thumb-size <n>', 'thumbnail size in pixels [400]', 400)
+  .option('-q, --quiet', 'suppress output')
   .parse(process.argv);
 
 // size
@@ -35,6 +36,7 @@ var size = program.thumbSize;
 var reporter = 'console';
 if (program.json) reporter = 'json';
 if (program.jsonStream) reporter = 'json-stream';
+if (program.quiet) reporter = null;
 
 // stream
 
