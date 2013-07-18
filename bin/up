@@ -54,6 +54,11 @@ if (!conf.pass) throw new Error('"pass" config required');
 var files = program.args;
 var title = program.title;
 
+// stdin reporter
+
+var isatty = process.stdin.isTTY
+if (!files.length && isatty) reporter = 'plain';
+
 var col = up.stream({
   title: title,
   reporter: reporter,
