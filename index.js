@@ -7,33 +7,25 @@
 var Cloudup = require('cloudup-client');
 
 /**
- * Cloudup remote.
- */
-
-var remote = process.env.CLOUDUP_REMOTE || 'https://api.cloudup.com';
-
-/**
- * Cloudup client.
- */
-
-var client = new Cloudup({
-  url: remote,
-  user: process.env.CLOUDUP_USER,
-  pass: process.env.CLOUDUP_PASS
-});
-
-/**
  * Upload stream.
  *
- * @param {Object} options
+ * @param {Object} opts
  * @return {Stream}
  * @api public
  */
 
-exports.stream = function(options){
-  var stream = client.stream(options);
-  var Reporter = require('./lib/' + options.reporter);
-  var reporter = new Reporter(stream, { remote: remote, direct: options.direct });
+exports.stream = function(opts){
+  opts = opts || {};
+
+  var client = new Cloudup({
+    url: opts.remote || 'https://api.cloudup.com',
+    user: opts.user,
+    pass: opts.pass
+  });
+
+  var stream = client.stream(opts);
+  var Reporter = require('./lib/' + opts.reporter);
+  var reporter = new Reporter(stream, opts);
   return stream;
 };
 
