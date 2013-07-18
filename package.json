@@ -10,12 +10,15 @@
     "cli"
   ],
   "dependencies": {
-    "commander": "~1.1.1",
+    "commander": "1.3.2",
     "cloudup-client": "0.4.0",
-    "ms": "~0.5.0",
-    "printf": "0.1.0",
+    "ms": "0.6.1",
+    "printf": "0.1.2",
     "uid2": "0.0.2",
-    "osthumb": "0.0.1"
+    "osthumb": "0.0.1",
+    "term-list": "0.1.0",
+    "open": "0.0.3",
+    "max-component": "~1.0.0"
   },
   "devDependencies": {
     "jstream": "visionmedia/jstream",
@@ -24,6 +27,7 @@
     "better-assert": "*"
   },
   "bin": {
-    "up": "bin/up"
+    "up": "bin/up",
+    "up-streams": "bin/up-streams"
   }
 }

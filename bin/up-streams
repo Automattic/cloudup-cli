@@ -1,0 +1,150 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var Cloudup = require('cloudup-client');
+var program = require('commander');
+var max = require('max-component');
+var List = require('term-list');
+var open = require('open');
+var up = require('..');
+var s = require('printf');
+
+// options
+
+program
+  .usage('[options] [query...]')
+  .option('-i, --interactive', 'display interactive list')
+  .parse(process.argv);
+
+// query
+
+var query = program.args.join(' ').trim();
+
+// max width
+
+var maxWidth = 40;
+
+// pending removal
+
+var removing;
+
+// config
+
+try {
+  var conf = require(process.env.HOME + '/.cloudup.json');
+} catch (err) {
+  throw new Error('failed to load ~/.cloudup.json');
+}
+
+// ensure user/pass
+
+if (!conf.user) throw new Error('"user" config required');
+if (!conf.pass) throw new Error('"pass" config required');
+
+var client = new Cloudup({
+  url: conf.remote || 'https://api.cloudup.com',
+  user: conf.user,
+  pass: conf.pass
+});
+
+// fetch streams
+
+client.streams({ title: query }, function(err, streams){
+  if (err) throw err;
+  if (program.interactive) interactive(streams);
+  else output(streams);
+});
+
+/**
+ * Output `streams`.
+ */
+
+function output(streams) {
+  console.log();
+  var w = Math.min(maxWidth, max(streams, 'title.length') + 3);
+  streams.forEach(function(stream){
+    console.log(format(stream, w));
+  });
+  console.log();
+}
+
+/**
+ * Truncate `str` to `len`.
+ */
+
+function truncate(str, len) {
+  if (str.length < len) return str;
+  return str.slice(0, len) + '…';
+}
+
+/**
+ * Format `stream` to `width`.
+ */
+
+function format(stream, width, removing) {
+  if (removing) {
+    return s('  \033[31;1m%*s\033[m \033[31m%s\033[m',
+      truncate(stream.title, maxWidth - 2),
+      width,
+      'press backspace again to remove')
+  }
+
+  return s('  \033[36m%*s\033[m \033[90m(%s)\033[m %s',
+    truncate(stream.title, maxWidth - 2),
+    width,
+    stream.items.length,
+    stream.url);
+}
+
+/**
+ * Display interactive streams list.
+ */
+
+function interactive(streams) {
+  var list = new List;
+  var w = Math.min(40, max(streams, 'title.length') + 3);
+
+  function find(id) {
+    return streams.filter(function(s){
+      return s.id == id;
+    }).pop();
+  }
+
+  streams.forEach(function(stream){
+    list.add(stream.id, format(stream, w));
+  });
+
+  list.start();
+
+  list.on('keypress', function(key, id){
+    switch (key.name) {
+      case 'return':
+        list.stop();
+        open(find(id).url);
+        break;
+      case 'backspace':
+        if (removing == id) {
+          removing = null;
+          list.remove(list.selected);
+          client.stream(id).remove(function(err){
+            if (err) throw err;
+          });
+        } else {
+          removing = id;
+          list.get(id).label = format(find(id), w, true);
+          list.draw();
+        }
+        break;
+      default:
+        if (removing) list.get(removing).label = format(find(removing), w);
+        removing = null;
+    }
+  });
+
+  list.on('empty', function(){
+    list.stop();
+  });
+}

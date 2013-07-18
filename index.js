@@ -28,5 +28,3 @@ exports.stream = function(opts){
   var reporter = new Reporter(stream, { direct: opts.direct });
   return stream;
 };
-
-

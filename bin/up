@@ -24,7 +24,12 @@ program
   .option('-J, --json-stream', 'output streaming json')
   .option('-f, --filename <str>', 'assign filename to stdin')
   .option('-s, --thumb-size <n>', 'thumbnail size in pixels [400]', 400)
+  .command('streams', 'list streams')
   .parse(process.argv);
+
+// sub-command
+
+if (program.runningCommand) return;
 
 // size
 
