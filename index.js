@@ -6,6 +6,13 @@
 
 var Cloudup = require('cloudup-client');
 var pkg = require('./package');
+var fs = require('fs');
+
+/**
+ * Configuration path.
+ */
+
+exports.configPath = process.env.HOME + '/.cloudup.json';
 
 /**
  * Create a client with `opts`.
@@ -37,4 +44,40 @@ exports.stream = function(opts){
   var Reporter = require('./lib/' + opts.reporter);
   var reporter = new Reporter(stream, opts);
   return stream;
+};
+
+/**
+ * Read config.
+ *
+ * @return {Object}
+ * @api public
+ */
+
+exports.readConfig = function(){
+  try {
+    var json = fs.readFileSync(exports.configPath, 'utf8');
+  } catch (err) {
+    console.error('\n  Failed to load configuration.');
+    console.error('  Execute: `up config` to get started!\n');
+    process.exit(1);
+  }
+
+  try {
+    return JSON.parse(json);
+  } catch (err) {
+    console.error('\n  Failed to parse ' + exports.configPath + '\n'); 
+    process.exit(1);   
+  }
+};
+
+/**
+ * Save config `obj`.
+ *
+ * @param {Object} obj
+ * @api public
+ */
+
+exports.saveConfig = function(obj){
+  var json = JSON.stringify(obj, null, 2);
+  fs.writeFileSync(exports.configPath, json);
 };

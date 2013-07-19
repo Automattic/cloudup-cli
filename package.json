@@ -29,6 +29,7 @@
   },
   "bin": {
     "up": "bin/up",
-    "up-streams": "bin/up-streams"
+    "up-streams": "bin/up-streams",
+    "up-config": "bin/up-config"
   }
 }

@@ -1,0 +1,46 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var Cloudup = require('cloudup-client');
+var program = require('commander');
+var up = require('..');
+var s = require('printf');
+
+// options
+
+program
+  .parse(process.argv);
+
+// setup
+
+console.log('');
+console.log('  Cloudup up(1) one-time configuration requires your');
+console.log('  password, however it is transfered via https');
+console.log('  and is not stored locally. Subsequent operations');
+console.log('  use the token generated from this process.');
+console.log('');
+
+program.prompt('  Username: ', function(user){
+  program.password('  Password: ', '*', function(pass){
+    var client = up.client({
+      remote: 'http://localhost:3030',
+      user: user,
+      pass: pass
+    });
+
+    client.registerApplication({ name: 'up' }, function(err, app){
+      if (err) throw err;
+      
+      up.saveConfig({
+        token: app.token,
+        fingerprint: app.fingerprint,
+        user: user
+      });
+
+      console.log('\n  Configuration saved to ' + up.configPath + '\n');
+    });
+  });
+});

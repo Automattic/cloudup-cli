@@ -33,17 +33,7 @@ var removing;
 
 // config
 
-try {
-  var conf = require(process.env.HOME + '/.cloudup.json');
-} catch (err) {
-  throw new Error('failed to load ~/.cloudup.json');
-}
-
-// ensure user/pass
-
-if (!conf.user) throw new Error('"user" config required');
-if (!conf.pass) throw new Error('"pass" config required');
-
+var conf = up.readConfig();
 var client = up.client(conf);
 
 // fetch streams

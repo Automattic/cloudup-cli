@@ -23,6 +23,7 @@ program
   .option('-f, --filename <str>', 'assign filename to stdin')
   .option('-s, --thumb-size <n>', 'thumbnail size in pixels [400]', 400)
   .command('streams', 'list streams')
+  .command('config', 'configure up(1)')
   .parse(process.argv);
 
 // sub-command
@@ -41,16 +42,7 @@ if (program.jsonStream) reporter = 'json-stream';
 
 // config
 
-try {
-  var conf = require(process.env.HOME + '/.cloudup.json');
-} catch (err) {
-  throw new Error('failed to load ~/.cloudup.json');
-}
-
-// ensure user/pass
-
-if (!conf.user) throw new Error('"user" config required');
-if (!conf.pass) throw new Error('"pass" config required');
+var conf = up.readConfig();
 
 // stream
 
@@ -68,8 +60,9 @@ var col = up.stream({
   direct: program.direct,
   remote: conf.remote,
   progressOnly: files.length > process.stdout.columns - 5,
-  user: conf.user,
-  pass: conf.pass
+  fingerprint: conf.fingerprint,
+  token: conf.token,
+  user: conf.user
 });
 
 // stdin
