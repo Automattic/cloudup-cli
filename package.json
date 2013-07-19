@@ -18,7 +18,8 @@
     "osthumb": "0.0.1",
     "term-list": "0.1.0",
     "open": "0.0.3",
-    "max-component": "~1.0.0"
+    "max-component": "~1.0.0",
+    "sum-component": "~0.1.1"
   },
   "devDependencies": {
     "jstream": "visionmedia/jstream",

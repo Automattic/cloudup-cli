@@ -67,6 +67,7 @@ var col = up.stream({
   reporter: reporter,
   direct: program.direct,
   remote: conf.remote,
+  progressOnly: files.length > process.stdout.columns - 5,
   user: conf.user,
   pass: conf.pass
 });

@@ -25,6 +25,6 @@ exports.stream = function(opts){
 
   var stream = client.stream(opts);
   var Reporter = require('./lib/' + opts.reporter);
-  var reporter = new Reporter(stream, { direct: opts.direct });
+  var reporter = new Reporter(stream, opts);
   return stream;
 };
