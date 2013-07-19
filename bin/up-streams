@@ -44,11 +44,7 @@ try {
 if (!conf.user) throw new Error('"user" config required');
 if (!conf.pass) throw new Error('"pass" config required');
 
-var client = new Cloudup({
-  url: conf.remote || 'https://api.cloudup.com',
-  user: conf.user,
-  pass: conf.pass
-});
+var client = up.client(conf);
 
 // fetch streams
 
