@@ -3,6 +3,28 @@
 
   The cloudup cli `up(1)` allows you to upload files to the cloud with ease.
 
+## Usage
+
+```
+
+  Usage: up [options] [file ...]
+
+  Commands:
+
+    streams                list streams
+    help [cmd]             display help for [cmd]
+
+  Options:
+
+    -h, --help            output usage information
+    -V, --version         output the version number
+    -t, --title <name>    stream title name
+    -d, --direct          output direct links
+    -f, --filename <str>  assign filename to stdin
+    -s, --thumb-size <n>  thumbnail size in pixels [400]
+    
+```
+
 ## Examples
 
   Uploading a single file:
@@ -75,70 +97,6 @@ $ cat some.png | up -t 'Cat Picture'
 
 ```
 $ git diff | up -t 'Awesome Diff' -f awesome.diff
-```
-
-  __JSON__ output:
-
-```
-$ up infrared*.png --json --title "Infrared Photos"
-
-{
-  "uid": "pDLCCKAnjL",
-  "title": "Infrared Photos",
-  "items": [
-    {
-      "uid": "fHWE8FMBmK",
-      "title": "nfrared 2",
-      "filename": "infrared-2.png",
-      "updated_at": "2013-03-15T16:28:09.685Z",
-      "created_at": "2013-03-15T16:28:09.685Z",
-      "remote": "fHWE8FMBmK.png"
-    },
-    {
-      "uid": "aQY6KVPxDM",
-      "title": "nfrared 3",
-      "filename": "infrared-3.png",
-      "updated_at": "2013-03-15T16:28:09.651Z",
-      "created_at": "2013-03-15T16:28:09.651Z",
-      "remote": "aQY6KVPxDM.png"
-    },
-    {
-      "uid": "bL5YnbjOHU",
-      "title": "nfrared 4",
-      "filename": "infrared-4.png",
-      "updated_at": "2013-03-15T16:28:09.597Z",
-      "created_at": "2013-03-15T16:28:09.597Z",
-      "remote": "bL5YnbjOHU.png"
-    },
-    {
-      "uid": "CihksaRXTB",
-      "title": "nfrared",
-      "filename": "infrared.png",
-      "updated_at": "2013-03-15T16:28:09.664Z",
-      "created_at": "2013-03-15T16:28:09.664Z",
-      "remote": "CihksaRXTB.png"
-    }
-  ]
-}
-```
-
-  Streaming __JSON__ output:
-
-```
-up --json-stream lib/*.js
-[
-  ["collection saved", {"uid":"hoogHRk95x","title":"Undefined","url":"https://cloudup.com/hoogHRk95x"}],
-  ["item saved", {"uid":"s3ALkid6oU","title":"Lib console","filename":"lib/console.js","updated_at":"2013-03-15T16:34:13.217Z","created_at":"2013-03-15T16:34:13.217Z"}],
-  ["item saved", {"uid":"iyXdLtihcK","title":"Lib json","filename":"lib/json.js","updated_at":"2013-03-15T16:34:13.240Z","created_at":"2013-03-15T16:34:13.240Z"}],
-  ["item saved", {"uid":"0h30zHVZaj","title":"Lib json stream","filename":"lib/json-stream.js","updated_at":"2013-03-15T16:34:13.275Z","created_at":"2013-03-15T16:34:13.275Z"}],
-  ["item progress", {"total":2900,"sent":2900,"remaining":0,"percent":100,"uid":"s3ALkid6oU"}],
-  ["item progress", {"total":1216,"sent":1216,"remaining":0,"percent":100,"uid":"0h30zHVZaj"}],
-  ["item progress", {"total":385,"sent":385,"remaining":0,"percent":100,"uid":"iyXdLtihcK"}],
-  ["item uploaded", {"uid":"s3ALkid6oU","title":"Lib console","filename":"lib/console.js","updated_at":"2013-03-15T16:34:13.217Z","created_at":"2013-03-15T16:34:13.217Z","remote":"s3ALkid6oU.js"}],
-  ["item uploaded", {"uid":"0h30zHVZaj","title":"Lib json stream","filename":"lib/json-stream.js","updated_at":"2013-03-15T16:34:13.275Z","created_at":"2013-03-15T16:34:13.275Z","remote":"0h30zHVZaj.js"}],
-  ["item uploaded", {"uid":"iyXdLtihcK","title":"Lib json","filename":"lib/json.js","updated_at":"2013-03-15T16:34:13.240Z","created_at":"2013-03-15T16:34:13.240Z","remote":"iyXdLtihcK.js"}],
-  ["end"]
-]
 ```
 
 ## Tips
