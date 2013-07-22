@@ -18,10 +18,11 @@ var fs = require('fs');
 program
   .version(pkg.version)
   .usage('[options] [file ...]')
-  .option('-t, --title <name>', 'stream title name', 'Untitled')
+  .option('-t, --title <name>', 'stream title name', '')
+  .option('-s, --stream <id>', 'upload to the given stream')
   .option('-d, --direct', 'output direct links')
   .option('-f, --filename <str>', 'assign filename to stdin')
-  .option('-s, --thumb-size <n>', 'thumbnail size in pixels [400]', 400)
+  .option('-T, --thumb-size <n>', 'thumbnail size in pixels [400]', 400)
   .command('streams', 'list streams')
   .command('config', 'configure up(1)')
   .parse(process.argv);
@@ -43,26 +44,29 @@ if (program.jsonStream) reporter = 'json-stream';
 // config
 
 var conf = up.readConfig();
+var client = up.client(conf);
 
 // stream
 
+var title = '' == program.title ? null : program.title;
 var files = program.args;
-var title = program.title;
+
+var stream = client.stream({
+  id: program.stream,
+  title: title
+});
 
 // stdin reporter
 
 var isatty = process.stdin.isTTY
 if (!files.length && isatty) reporter = 'plain';
 
-var col = up.stream({
-  title: title,
-  reporter: reporter,
-  direct: program.direct,
-  remote: conf.remote,
+// reporter
+
+var Reporter = require('../lib/' + reporter);
+var reporter = new Reporter(stream, {
   progressOnly: files.length > process.stdout.columns - 5,
-  fingerprint: conf.fingerprint,
-  token: conf.token,
-  user: conf.user
+  direct: program.direct
 });
 
 // stdin
@@ -74,9 +78,9 @@ if (!files.length) {
   process.stdin.on('end', function(){
     var file = program.filename || out.path;
     var title = 'Untitled' == program.title ? null : program.title;
-    var item = col.item({ title: title, filename: file });
+    var item = stream.item({ title: title, filename: file });
     item.file(out.path);
-    col.save(function(err){
+    stream.save(function(err){
       if (err) throw err;
     });
   });
@@ -86,7 +90,7 @@ if (!files.length) {
 // files
 
 files.forEach(function(file){
-  var item = col.item();
+  var item = stream.item();
   if (isUrl(file)) return item.url(file);
   var i = item.file(file);
   i.on('save', function(){
@@ -99,7 +103,11 @@ files.forEach(function(file){
 
 // save
 
-col.save(function(err){
+stream.on('error', function(err){
+  throw err;
+});
+
+stream.save(function(err){
   if (err) throw err;
 });
 
