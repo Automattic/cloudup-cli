@@ -37,6 +37,7 @@ exports.client = function(opts){
  */
 
 exports.readConfig = function(){
+  // read
   try {
     var json = fs.readFileSync(exports.configPath, 'utf8');
   } catch (err) {
@@ -45,12 +46,22 @@ exports.readConfig = function(){
     process.exit(1);
   }
 
+  // parse
   try {
-    return JSON.parse(json);
+    var obj = JSON.parse(json);
   } catch (err) {
     console.error('\n  Failed to parse ' + exports.configPath + '\n'); 
     process.exit(1);   
   }
+
+  // validate
+  if (!(obj.user && obj.fingerprint && obj.token)) {
+    console.error('\n  Application token missing.');
+    console.error('  Execute: `up config` to get a token!\n');
+    process.exit(1);
+  }
+
+  return obj;
 };
 
 /**
