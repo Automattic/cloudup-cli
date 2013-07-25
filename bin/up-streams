@@ -50,7 +50,7 @@ client.streams({ title: query }, function(err, streams){
 
 function output(streams) {
   console.log();
-  var w = Math.min(maxWidth, max(streams, 'title.length') + 3);
+  var w = Math.min(maxWidth, maxTitleLength(streams) + 3);
   streams.forEach(function(stream){
     console.log(format(stream, w));
   });
@@ -92,12 +92,7 @@ function format(stream, width, removing) {
 
 function interactive(streams) {
   var list = new List;
-
-  var m = max(streams, function(s){
-    return (s.title || '').length;
-  });
-
-  var w = Math.min(40, m + 3);
+  var w = Math.min(40, maxTitleLength(streams) + 3);
 
   function find(id) {
     return streams.filter(function(s){
@@ -138,5 +133,15 @@ function interactive(streams) {
 
   list.on('empty', function(){
     list.stop();
+  });
+}
+
+/**
+ * Return max title length in `streams`.
+ */
+
+function maxTitleLength(streams) {
+  return max(streams, function(s){
+    return (s.title || '').length;
   });
 }
