@@ -62,6 +62,7 @@ function output(streams) {
  */
 
 function truncate(str, len) {
+  str = String(str);
   if (str.length < len) return str;
   return str.slice(0, len) + '…';
 }
@@ -73,13 +74,13 @@ function truncate(str, len) {
 function format(stream, width, removing) {
   if (removing) {
     return s('  \033[31;1m%*s\033[m \033[31m%s\033[m',
-      truncate(stream.title, maxWidth - 2),
+      truncate(stream.title || 'Untitled', maxWidth - 2),
       width,
       'press backspace again to remove')
   }
 
   return s('  \033[36m%*s\033[m \033[90m(%s)\033[m %s',
-    truncate(stream.title, maxWidth - 2),
+    truncate(stream.title || 'Untitled', maxWidth - 2),
     width,
     stream.items.length,
     stream.url);
@@ -91,7 +92,12 @@ function format(stream, width, removing) {
 
 function interactive(streams) {
   var list = new List;
-  var w = Math.min(40, max(streams, 'title.length') + 3);
+
+  var m = max(streams, function(s){
+    return (s.title || '').length;
+  });
+
+  var w = Math.min(40, m + 3);
 
   function find(id) {
     return streams.filter(function(s){
