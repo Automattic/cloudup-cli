@@ -26,7 +26,7 @@ exports.client = function(opts){
   opts = opts || {};
   opts.useragent = ' up/' + pkg.version;
   if (process.env.UP_API_URL) opts.url = process.env.UP_API_URL;
-  if (process.env.UP_CLOUDUP_URL) opts.url = process.env.UP_CLOUDUP_URL;
+  if (process.env.UP_CLOUDUP_URL) opts.cloudupUrl = process.env.UP_CLOUDUP_URL;
   return new Cloudup(opts);
 };
 
