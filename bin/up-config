@@ -14,29 +14,31 @@ var s = require('printf');
 program
   .parse(process.argv);
 
+// app id
+
+var appid = process.env.UP_APP_ID || 'TODO';
+
 // setup
 
 console.log('');
 console.log('  Cloudup up(1) one-time configuration requires your');
 console.log('  password, however it is transfered via https');
 console.log('  and is not stored locally. Subsequent operations');
-console.log('  use the token generated from this process.');
+console.log('  use the auth token generated from this process.');
 console.log('');
 
 program.prompt('  Username: ', function(user){
   program.password('  Password: ', '*', function(pass){
     var client = up.client({
-      remote: 'http://localhost:3030',
       user: user,
       pass: pass
     });
 
-    client.registerApplication({ name: 'up' }, function(err, app){
+    client.requestToken(appid, function(err, tok){
       if (err) throw err;
       
       up.saveConfig({
-        token: app.token,
-        fingerprint: app.fingerprint,
+        token: tok,
         user: user
       });
 

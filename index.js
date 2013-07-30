@@ -25,7 +25,8 @@ exports.configPath = process.env.HOME + '/.cloudup.json';
 exports.client = function(opts){
   opts = opts || {};
   opts.useragent = ' up/' + pkg.version;
-  opts.url = opts.remote || 'https://api.cloudup.com';
+  if (process.env.UP_API_URL) opts.url = process.env.UP_API_URL;
+  if (process.env.UP_CLOUDUP_URL) opts.url = process.env.UP_CLOUDUP_URL;
   return new Cloudup(opts);
 };
 
@@ -55,8 +56,8 @@ exports.readConfig = function(){
   }
 
   // validate
-  if (!(obj.user && obj.fingerprint && obj.token)) {
-    console.error('\n  Application token missing.');
+  if (!(obj.user && obj.token)) {
+    console.error('\n  Auth token missing.');
     console.error('  Execute: `up config` to get a token!\n');
     process.exit(1);
   }
