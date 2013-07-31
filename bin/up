@@ -27,6 +27,10 @@ program
   .command('config', 'configure up(1)')
   .parse(process.argv);
 
+// title
+
+process.title = 'up';
+
 // sub-command
 
 if (program.runningCommand) return;

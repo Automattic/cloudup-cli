@@ -19,6 +19,10 @@ program
   .option('-i, --interactive', 'display interactive list')
   .parse(process.argv);
 
+// title
+
+process.title = 'up-streams';
+
 // query
 
 var query = program.args.join(' ').trim();
@@ -26,10 +30,6 @@ var query = program.args.join(' ').trim();
 // max width
 
 var maxWidth = 40;
-
-// pending removal
-
-var removing;
 
 // config
 
@@ -40,7 +40,7 @@ var client = up.client(conf);
 
 client.streams({ title: query }, function(err, streams){
   if (err) throw err;
-  if (program.interactive) interactive(streams);
+  if (program.interactive) interactiveStreams(streams);
   else output(streams);
 });
 
@@ -71,7 +71,7 @@ function truncate(str, len) {
  * Format `stream` to `width`.
  */
 
-function format(stream, width, removing) {
+function formatStream(stream, width, removing) {
   if (removing) {
     return s('  \033[31;1m%*s\033[m \033[31m%s\033[m',
       truncate(stream.title || 'Untitled', maxWidth - 2),
@@ -82,7 +82,7 @@ function format(stream, width, removing) {
   return s('  \033[36m%*s\033[m \033[90m(%s)\033[m %s',
     truncate(stream.title || 'Untitled', maxWidth - 2),
     width,
-    stream.items.length,
+    stream.item_ids.length,
     stream.url);
 }
 
@@ -90,9 +90,10 @@ function format(stream, width, removing) {
  * Display interactive streams list.
  */
 
-function interactive(streams) {
-  var list = new List;
+function interactiveStreams(streams) {
   var w = Math.min(40, maxTitleLength(streams) + 3);
+  var list = new List;
+  var removing;
 
   function find(id) {
     return streams.filter(function(s){
@@ -100,8 +101,8 @@ function interactive(streams) {
     }).pop();
   }
 
-  streams.forEach(function(stream){
-    list.add(stream.id, format(stream, w));
+  streams.sort(byTitle).forEach(function(stream){
+    list.add(stream.id, formatStream(stream, w));
   });
 
   list.start();
@@ -121,12 +122,106 @@ function interactive(streams) {
           });
         } else {
           removing = id;
-          list.get(id).label = format(find(id), w, true);
+          list.get(id).label = formatStream(find(id), w, true);
           list.draw();
         }
         break;
+      case 'right':
+        removing = null;
+        find(id).items(function(err, items){
+          if (err) throw err;
+          list.stop();
+          interactiveItems(items);
+        });
+        break;
       default:
-        if (removing) list.get(removing).label = format(find(removing), w);
+        if (removing) list.get(removing).label = formatStream(find(removing), w);
+        removing = null;
+    }
+  });
+
+  list.on('empty', function(){
+    list.stop();
+  });
+
+  return list;
+}
+
+/**
+ * Format `item` to `width`.
+ */
+
+function formatItem(item, width, removing) {
+  if (removing) {
+    return s('  \033[31;1m%*s\033[m \033[31m%s\033[m',
+      truncate(item.title || 'Untitled', maxWidth - 2),
+      width,
+      'press backspace again to remove')
+  }
+
+  return s('  \033[36m%*s\033[m %s',
+    truncate(item.title || 'Untitled', maxWidth - 2),
+    width,
+    item.url);
+}
+
+/**
+ * Display interactive items list.
+ */
+
+function interactiveItems(items) {
+  var w = Math.min(40, maxTitleLength(items) + 3);
+  var list = new List;
+  var removing;
+
+  function find(id) {
+    return items.filter(function(i){
+      return i.id == id;
+    }).pop();
+  }
+
+  items.sort(byTitle).forEach(function(item){
+    list.add(item.id, formatItem(item, w));
+  });
+
+  list.start();
+
+  function showStreams(id) {
+    removing = null;
+    list.stop();
+    client.streams({ title: query }, function(err, streams){
+      if (err) throw err;
+      var list = interactiveStreams(streams);
+      if (id) list.select(id);
+    });
+  }
+
+  list.on('keypress', function(key, id){
+    switch (key.name) {
+      case 'return':
+        list.stop();
+        open(find(id).url);
+        break;
+      case 'backspace':
+        if (removing == id) {
+          removing = null;
+          list.remove(list.selected);
+          var item = find(id);
+          item.remove(function(err){
+            if (err) throw err;
+            if (!list.items.length) showStreams(item.stream.id);
+          });
+        } else {
+          removing = id;
+          list.get(id).label = formatItem(find(id), w, true);
+          list.draw();
+        }
+        break;
+      case 'left':
+        showStreams(find(id).stream.id);
+        break;
+      default:
+        if (removing) list.get(removing).label = formatItem(find(removing), w);
         removing = null;
     }
   });
@@ -144,4 +239,14 @@ function maxTitleLength(streams) {
   return max(streams, function(s){
     return (s.title || '').length;
   });
+}
+
+/**
+ * Sort by title.
+ */
+
+function byTitle(a, b) {
+  if (a.title > b.title) return 1;
+  if (a.title < b.title) return -1;
+  return 0;
 }
