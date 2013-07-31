@@ -51,8 +51,8 @@ client.streams({ title: query }, function(err, streams){
 function output(streams) {
   console.log();
   var w = Math.min(maxWidth, maxTitleLength(streams) + 3);
-  streams.forEach(function(stream){
-    console.log(format(stream, w));
+  streams.sort(byTitle).forEach(function(stream){
+    console.log(formatStream(stream, w));
   });
   console.log();
 }
