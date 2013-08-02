@@ -1,25 +1,13 @@
 
-0.2.0 / 2013-03-28 
+0.3.0 / 2013-08-02 
 ==================
 
-  * add thumbnail support
-  * update generated item urls
-  * update cloudup-client
-
-0.1.1 / 2013-03-25
-==================
-
-  * update cloudup-client
-
-0.1.0 / 2013-03-15
-==================
-
-  * add "item saved" event to json stream
-  * add stdin support. Closes #3
-  * add fatal() on uncaughtException and reset cursor
-  * add --json-stream reporting
-  * add --direct support
-  * add --json
-  * add collection output asap. Closes #10
-  * add showing / hiding of cursor
-  * add progress reporting
+ * add interactive stream listing support 
+ * add interactive item listing support 
+ * add oauth support
+ * add -s, --stream <id> for adding to a stream
+ * add up-config(1)
+ * add aggregate progress for large #s of items. Closes #23
+ * add up-streams(1)
+ * remove --json and --json-stream
+ 
