@@ -19,7 +19,8 @@
     "term-list": "0.1.0",
     "open": "0.0.3",
     "max-component": "~1.0.0",
-    "sum-component": "~0.1.1"
+    "sum-component": "~0.1.1",
+    "bytes": "~0.2.1"
   },
   "devDependencies": {
     "mocha": "*",

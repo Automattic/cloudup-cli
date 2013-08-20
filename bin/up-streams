@@ -8,6 +8,7 @@ var Cloudup = require('cloudup-client');
 var program = require('commander');
 var max = require('max-component');
 var List = require('term-list');
+var bytes = require('bytes');
 var open = require('open');
 var up = require('..');
 var s = require('printf');
@@ -159,10 +160,12 @@ function formatItem(item, width, removing) {
       'press backspace again to remove')
   }
 
-  return s('  \033[36m%*s\033[m %s',
+  return s('  \033[36m%*s\033[m %s\033[90m - %s %s\033[0m',
     truncate(item.title || 'Untitled', maxWidth - 2),
     width,
-    item.url);
+    item.url,
+    bytes(item.size),
+    item.filename);
 }
 
 /**
