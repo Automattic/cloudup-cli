@@ -164,7 +164,7 @@ function formatItem(item, width, removing) {
     truncate(item.title || 'Untitled', maxWidth - 2),
     width,
     item.url,
-    bytes(item.size),
+    bytes(item.size || 0),
     item.filename);
 }
 
