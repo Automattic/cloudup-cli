@@ -1,4 +1,11 @@
 
+0.4.0 / 2013-08-28 
+==================
+
+ * add clipboard copy support
+ * refactor interactive output, remove urls here
+ * make sure streams fit within the # of rows
+
 0.3.0 / 2013-08-02 
 ==================
 
