@@ -23,7 +23,7 @@ program
   .option('-s, --stream <id>', 'upload to the given stream')
   .option('-d, --direct', 'output direct links')
   .option('-f, --filename <str>', 'assign filename to stdin')
-  .option('-T, --thumb-size <n>', 'thumbnail size in pixels [400]', 400)
+  .option('-T, --thumb-size <n>', 'thumbnail size in pixels [600]', 600)
   .command('streams', 'list streams')
   .command('config', 'configure up(1)')
   .parse(process.argv);
@@ -61,6 +61,12 @@ var stream = client.stream({
   title: title
 });
 
+// copy
+
+stream.on('save', function(){
+  copy(stream.url);
+});
+
 // stdin reporter
 
 var isatty = process.stdin.isTTY
@@ -87,7 +93,6 @@ if (!files.length) {
     item.file(out.path);
     stream.save(function(err){
       if (err) throw err;
-      copy(stream.url);
     });
   });
   return;
@@ -99,11 +104,9 @@ files.forEach(function(file){
   var item = stream.item();
   if (isUrl(file)) return item.url(file);
   var i = item.file(file);
-  i.on('save', function(){
-    thumb(i._file, { width: size, height: size }, function(err, path){
-      if (err || !path) return;
-      i.thumb(path);
-    });
+  thumb(i._file, { width: size, height: size }, function(err, path){
+    if (err || !path) return;
+    i.thumb(path);
   });
 });
 
@@ -115,7 +118,6 @@ stream.on('error', function(err){
 
 stream.save(function(err){
   if (err) throw err;
-  copy(stream.url);
 });
 
 /**
