@@ -10,6 +10,8 @@ var max = require('max-component');
 var List = require('term-list');
 var bytes = require('bytes');
 var open = require('open');
+var path = require('path');
+var extname = path.extname;
 var up = require('..');
 var s = require('printf');
 
@@ -94,6 +96,24 @@ function formatStream(stream, width, removing) {
 }
 
 /**
+ * Format interactive `stream` to `width`.
+ */
+
+function formatInteractiveStream(stream, width, removing) {
+  if (removing) {
+    return s('  \033[31;1m%*s\033[m \033[31m%s\033[m',
+      truncate(stream.title || 'Untitled', maxWidth - 2),
+      width,
+      'press backspace again to remove')
+  }
+
+  return s('  \033[36m%*s\033[m \033[90m(%s)\033[m',
+    truncate(stream.title || 'Untitled', maxWidth - 2),
+    width,
+    stream.item_ids.length);
+}
+
+/**
  * Display interactive streams list.
  */
 
@@ -109,7 +129,7 @@ function interactiveStreams(streams) {
   }
 
   streams.sort(byTitle).slice(0, rows - 4).forEach(function(stream){
-    list.add(stream.id, formatStream(stream, w));
+    list.add(stream.id, formatInteractiveStream(stream, w, false));
   });
 
   list.start();
@@ -129,7 +149,7 @@ function interactiveStreams(streams) {
           });
         } else {
           removing = id;
-          list.get(id).label = formatStream(find(id), w, true);
+          list.get(id).label = formatInteractiveStream(find(id), w, true);
           list.draw();
         }
         break;
@@ -142,7 +162,7 @@ function interactiveStreams(streams) {
         });
         break;
       default:
-        if (removing) list.get(removing).label = formatStream(find(removing), w);
+        if (removing) list.get(removing).label = formatInteractiveStream(find(removing), w);
         removing = null;
     }
   });
@@ -175,6 +195,25 @@ function formatItem(item, width, removing) {
 }
 
 /**
+ * Format `item` to `width`.
+ */
+
+function formatInteractiveItem(item, width, removing) {
+  if (removing) {
+    return s('  \033[31;1m%*s\033[m \033[31m%s\033[m',
+      truncate(item.title || 'Untitled', maxWidth - 2),
+      width,
+      'press backspace again to remove')
+  }
+
+  var size = item.size ? bytes(item.size) : '';
+  var ext = extname(item.filename || '').toLowerCase();
+  var title = truncate(item.title || 'Untitled', maxWidth - 2).trim();
+
+  return s('  \033[36m%*s\033[m %s\033[90m %s\033[0m', title, width, ext, size);
+}
+
+/**
  * Display interactive items list.
  */
 
@@ -190,7 +229,7 @@ function interactiveItems(items) {
   }
 
   items.sort(byTitle).forEach(function(item){
-    list.add(item.id, formatItem(item, w));
+    list.add(item.id, formatInteractiveItem(item, w));
   });
 
   list.start();
@@ -222,7 +261,7 @@ function interactiveItems(items) {
           });
         } else {
           removing = id;
-          list.get(id).label = formatItem(find(id), w, true);
+          list.get(id).label = formatInteractiveItem(find(id), w, true);
           list.draw();
         }
         break;
@@ -230,7 +269,7 @@ function interactiveItems(items) {
         showStreams(find(id).stream.id);
         break;
       default:
-        if (removing) list.get(removing).label = formatItem(find(removing), w);
+        if (removing) list.get(removing).label = formatInteractiveItem(find(removing), w);
         removing = null;
     }
   });
