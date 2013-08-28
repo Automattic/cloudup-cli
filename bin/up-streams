@@ -32,6 +32,12 @@ var query = program.args.join(' ').trim();
 
 var maxWidth = 40;
 
+// term sizing
+
+var stdout = process.stdout;
+var cols = stdout.cols;
+var rows = stdout.rows;
+
 // config
 
 var conf = up.readConfig();
@@ -102,7 +108,7 @@ function interactiveStreams(streams) {
     }).pop();
   }
 
-  streams.sort(byTitle).forEach(function(stream){
+  streams.sort(byTitle).slice(0, rows - 4).forEach(function(stream){
     list.add(stream.id, formatStream(stream, w));
   });
 
