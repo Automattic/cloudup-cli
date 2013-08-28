@@ -7,6 +7,7 @@
 var program = require('commander');
 var pkg = require('../package');
 var thumb = require('osthumb');
+var copy = require('cliparoo');
 var path = require('path');
 var basename = path.basename;
 var uid = require('uid2');
@@ -86,6 +87,7 @@ if (!files.length) {
     item.file(out.path);
     stream.save(function(err){
       if (err) throw err;
+      copy(stream.url);
     });
   });
   return;
@@ -113,6 +115,7 @@ stream.on('error', function(err){
 
 stream.save(function(err){
   if (err) throw err;
+  copy(stream.url);
 });
 
 /**
