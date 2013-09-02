@@ -11,7 +11,9 @@
 
   Commands:
 
+    open                   open matching stream
     streams                list streams
+    config                 configure up(1)
     help [cmd]             display help for [cmd]
 
   Options:
@@ -19,10 +21,11 @@
     -h, --help            output usage information
     -V, --version         output the version number
     -t, --title <name>    stream title name
+    -s, --stream <id>     upload to the given stream
     -d, --direct          output direct links
     -f, --filename <str>  assign filename to stdin
-    -s, --thumb-size <n>  thumbnail size in pixels [400]
-    
+    -T, --thumb-size <n>  thumbnail size in pixels [600]
+ 
 ```
 
 ## Examples
