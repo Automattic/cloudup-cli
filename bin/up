@@ -13,6 +13,7 @@ var basename = path.basename;
 var uid = require('uid2');
 var up = require('..');
 var fs = require('fs');
+var index = 0;
 
 // options
 
@@ -101,7 +102,8 @@ if (!files.length) {
 // files
 
 files.forEach(function(file){
-  var item = stream.item();
+  var ind = Date.now() + ++index;
+  var item = stream.item({ index: ind });
   if (isUrl(file)) return item.url(file);
   var i = item.file(file);
   thumb(i._file, { width: size, height: size }, function(err, path){
