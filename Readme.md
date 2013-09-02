@@ -11,6 +11,7 @@
 
   Commands:
 
+    copy                   copy matching stream's url
     open                   open matching stream
     streams                list streams
     config                 configure up(1)
