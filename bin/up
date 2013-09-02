@@ -26,6 +26,7 @@ program
   .option('-f, --filename <str>', 'assign filename to stdin')
   .option('-T, --thumb-size <n>', 'thumbnail size in pixels [600]', 600)
   .command('open', 'open matching stream')
+  .command('copy', 'copy matching stream\'s url')
   .command('streams', 'list streams')
   .command('config', 'configure up(1)')
   .parse(process.argv);

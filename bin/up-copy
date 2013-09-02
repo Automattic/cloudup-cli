@@ -6,6 +6,7 @@
 
 var Cloudup = require('cloudup-client');
 var program = require('commander');
+var copy = require('cliparoo');
 var open = require('open');
 var up = require('..');
 
@@ -17,7 +18,7 @@ program
 
 // title
 
-process.title = 'up-open';
+process.title = 'up-copy';
 
 // query
 
@@ -41,6 +42,6 @@ client.streams({ title: query, only: 'title,url' }, function(err, streams){
     process.exit(1);
   }
 
-  console.log('\n  opening %s\n', first.title);
-  open(first.url);
+  console.log('\n  \033[36m%s\033[0m copied to the clipboard\n', first.title);
+  copy(first.url);
 });

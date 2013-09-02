@@ -32,6 +32,7 @@
     "up": "bin/up",
     "up-streams": "bin/up-streams",
     "up-config": "bin/up-config",
+    "up-copy": "bin/up-copy",
     "up-open": "bin/up-open"
   }
 }
