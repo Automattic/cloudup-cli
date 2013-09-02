@@ -102,6 +102,14 @@ $ cat some.png | up -t 'Cat Picture'
 $ git diff | up -t 'Awesome Diff' -f awesome.diff
 ```
 
+  Open the first matching stream in your default browser:
+
+```
+$ up open music
+$ up open taxes
+$ up open tax
+```
+
 ## Tips
 
   Collection and item links that output to stdout may be opened
