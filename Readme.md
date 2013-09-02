@@ -105,9 +105,18 @@ $ git diff | up -t 'Awesome Diff' -f awesome.diff
   Open the first matching stream in your default browser:
 
 ```
+$ up open pet photos
 $ up open music
 $ up open taxes
 $ up open tax
+```
+
+  Copy the first matching stream's url to the clipboard:
+
+```
+$ up copy cloudup design
+$ up copy taxes
+$ up copy tax
 ```
 
 ## Tips
