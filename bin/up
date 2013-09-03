@@ -80,7 +80,7 @@ if (!files.length && isatty) reporter = 'plain';
 
 var Reporter = require('../lib/' + reporter);
 var reporter = new Reporter(stream, {
-  progressOnly: files.length > process.stdout.columns - 5,
+  progressOnly: files.length > process.stdout.rows - 5,
   direct: program.direct
 });
 
