@@ -119,7 +119,7 @@ files.forEach(function(file){
 // save
 
 stream.on('error', function(err){
-  throw err;
+  console.error(err.message);
 });
 
 stream.save(function(err){
