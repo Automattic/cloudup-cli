@@ -1,4 +1,16 @@
 
+0.5.0 / 2013-09-05 
+==================
+
+ * add up-open(1). Closes #32
+ * add index support
+ * add up-copy(1)
+ * add copying of stream.url as soon as the stream is created
+ * change: be less critical with errors
+ * change ua to cloudup-cli
+ * fix aggregate progress: use rows not cols
+ * fix code thumbs: dont generate them :)
+
 0.4.0 / 2013-08-28 
 ==================
 
