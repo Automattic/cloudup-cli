@@ -121,8 +121,27 @@ $ up streams
   Dolphins intelligence (8) https://cloudup.com/c5Hy71w2fWe
                    EXIF (6) https://cloudup.com/coRcOdfXXiom
               Es6 yield (2) https://cloudup.com/cJWXLX1af2t
-              ...
+
 ```
+
+  Search for streams:
+
+```
+$ up streams australia
+
+   Australia 2013 (63) https://cloudup.com/c_nzIQcjCWo
+
+```
+
+  Copy the first matching stream to the clipboard:
+
+```
+$ up copy australia
+
+  Australia 2013 copied to the clipboard
+
+```
+
 ## Tips
 
   Stream and item links that output to stdout may be opened
