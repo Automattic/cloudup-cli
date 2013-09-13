@@ -3,6 +3,12 @@
 
   The cloudup cli `up(1)` allows you to upload files to the cloud with ease.
 
+## Installation
+
+```
+$ npm install -g up
+```
+
 ## Usage
 
 ```
@@ -99,6 +105,24 @@ $ up example.jpeg --direct
         stream : https://cloudup.com/c1rAycLAdHo
 ```
 
+### Streams
+
+  List your cloudup streams:
+
+```
+$ up streams 
+
+                    Art (19) https://cloudup.com/cQD5fdgPrU1
+                      C (2) https://cloudup.com/c4f5h12Ti1T
+                   Cats (3) https://cloudup.com/cVeLe7dWdEH
+        Cloudup - light (5) https://cloudup.com/ce4R6fdsQo
+                Cluster (3) https://cloudup.com/cQJg8sdf7qO
+                 Design (35) https://cloudup.com/c7nHCsd30hhF
+  Dolphins intelligence (8) https://cloudup.com/c5Hy71w2fWe
+                   EXIF (6) https://cloudup.com/coRcOdfXXiom
+              Es6 yield (2) https://cloudup.com/cJWXLX1af2t
+              ...
+```
 ## Tips
 
   Stream and item links that output to stdout may be opened
