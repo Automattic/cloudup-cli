@@ -137,9 +137,12 @@ $ up streams australia
 
 ```
 $ up copy australia
+```
 
-  Australia 2013 copied to the clipboard
+  Open the first matching stream in your default browser:
 
+```
+$ up open australia
 ```
 
 ## Tips
