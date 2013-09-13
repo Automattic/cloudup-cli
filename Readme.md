@@ -46,6 +46,8 @@ $ up reflection.png
          stream : https://cloudup.com/cHFtYYeB8fJ
 ```
 
+#### Multiple Files
+
   Upload several files at once by passing multiple filenames:
 
 ```
@@ -65,6 +67,8 @@ $ up simon-*.png
           simon-ocean.png : 74%
                    stream : https://cloudup.com/c7WwhIwSl6Y
 ```
+
+#### Thumbnails
 
  `up(1)` delivers thumbnails before the files are uploaded, so viewers can
   see what they're getting before-hand, and progress is updated in real-time.
