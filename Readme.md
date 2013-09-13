@@ -90,6 +90,8 @@ $ up ferrets/*.png --title Ferrets
 $ up simon.png --stream c7WwhIwSl6Y
 ```
 
+  If you prefer direct links you may use `--direct`:
+
 ## Tips
 
   Stream and item links that output to stdout may be opened
