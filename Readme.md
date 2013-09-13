@@ -154,6 +154,9 @@ $ up open australia
   interactive list using the arrow keys to traverse the list. Pressing
   _return_ will open the stream or item in your default browser.
 
+  The `up` / `down` arrows for navigating the list, and `left` / `right`
+  to view the items or go back to the stream list.
+
   ![interactive mode](https://i.cloudup.com/m8K8vVohPm.gif)
 
 ## Tips
