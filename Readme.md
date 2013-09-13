@@ -8,8 +8,25 @@
 
 ## Installation
 
+  Install with npm:
+
 ```
 $ npm install -g up
+```
+
+  Authenticate:
+
+```
+$ up config
+
+  Cloudup up(1) one-time configuration requires your
+  password, however it is transfered via https
+  and is not stored locally. Subsequent operations
+  use the auth token generated from this process.
+
+  Username: tobi
+  Password: ******
+
 ```
 
 ## Usage
