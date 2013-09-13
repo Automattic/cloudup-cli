@@ -92,6 +92,13 @@ $ up simon.png --stream c7WwhIwSl6Y
 
   If you prefer direct links you may use `--direct`:
 
+```
+$ up example.jpeg --direct
+
+  example.jpeg : http://i.cloudup.com/uBuZVUk80lK/SXSc1V.jpeg
+        stream : https://cloudup.com/c1rAycLAdHo
+```
+
 ## Tips
 
   Stream and item links that output to stdout may be opened
