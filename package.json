@@ -1,0 +1,39 @@
+{
+  "name": "cloudup",
+  "version": "0.1.0",
+  "description": "cloudup command-line executable",
+  "keywords": [
+    "cloudup",
+    "upload",
+    "file",
+    "files",
+    "cli"
+  ],
+  "dependencies": {
+    "commander": "1.3.2",
+    "cloudup-client": "0.1.0",
+    "ms": "0.6.1",
+    "printf": "0.1.2",
+    "uid2": "0.0.2",
+    "osthumb": "0.0.1",
+    "term-list": "0.2.0",
+    "open": "0.0.3",
+    "max-component": "~1.0.0",
+    "sum-component": "~0.1.1",
+    "bytes": "~0.2.1",
+    "cliparoo": "1.0.0",
+    "is-code": "~1.1.0"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*",
+    "better-assert": "*"
+  },
+  "bin": {
+    "up": "bin/up",
+    "up-streams": "bin/up-streams",
+    "up-config": "bin/up-config",
+    "up-copy": "bin/up-copy",
+    "up-open": "bin/up-open"
+  }
+}

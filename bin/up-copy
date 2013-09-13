@@ -1,0 +1,47 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var Cloudup = require('cloudup-client');
+var program = require('commander');
+var copy = require('cliparoo');
+var open = require('open');
+var up = require('..');
+
+// options
+
+program
+  .usage('[query...]')
+  .parse(process.argv);
+
+// title
+
+process.title = 'up-copy';
+
+// query
+
+var query = program.args.join(' ').trim();
+
+// config
+
+var conf = up.readConfig();
+var client = up.client(conf);
+
+// fetch streams
+
+client.streams({ title: query, only: 'title,url' }, function(err, streams){
+  if (err) throw err;
+
+  var first = streams.pop();
+  
+  // none
+  if (!first) {
+    console.error('no matching streams found');
+    process.exit(1);
+  }
+
+  console.log('\n  \033[36m%s\033[0m copied to the clipboard\n', first.title);
+  copy(first.url);
+});

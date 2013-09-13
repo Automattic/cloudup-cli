@@ -1,0 +1,46 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var Cloudup = require('cloudup-client');
+var program = require('commander');
+var open = require('open');
+var up = require('..');
+
+// options
+
+program
+  .usage('[query...]')
+  .parse(process.argv);
+
+// title
+
+process.title = 'up-open';
+
+// query
+
+var query = program.args.join(' ').trim();
+
+// config
+
+var conf = up.readConfig();
+var client = up.client(conf);
+
+// fetch streams
+
+client.streams({ title: query, only: 'title,url' }, function(err, streams){
+  if (err) throw err;
+
+  var first = streams.pop();
+  
+  // none
+  if (!first) {
+    console.error('no matching streams found');
+    process.exit(1);
+  }
+
+  console.log('\n  opening %s\n', first.title);
+  open(first.url);
+});
