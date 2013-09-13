@@ -101,6 +101,20 @@ $ up simon-*.png
 
   ![cloudup cli simon photos](https://i.cloudup.com/jy3GcK9VpO-900x900.jpeg)
 
+#### STDIN
+
+  When no filenames are given `up(1)` reads from __stdin__:
+
+```
+$ echo 'hello world' | up
+```
+
+  A filename can be passed to help cloudup interpret the content:
+
+```
+$ echo 'hello __world__' | up --filename hello.md
+```
+
 #### Upload Options
 
   You may optionally provide a stream `--title` upon upload, otherwise Cloudup
