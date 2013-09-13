@@ -70,10 +70,25 @@ $ up simon-*.png
 
 #### Thumbnails
 
- `up(1)` delivers thumbnails before the files are uploaded, so viewers can
+ `up(1)` delivers thumbnails when possible before the files are uploaded, so viewers can
   see what they're getting before-hand, and progress is updated in real-time.
 
   ![cloudup cli simon photos](https://i.cloudup.com/jy3GcK9VpO-900x900.jpeg)
+
+#### Upload Options
+
+  You may optionally provide a stream `--title` upon upload, otherwise Cloudup
+  will generate one for you based on the content:
+
+```
+$ up ferrets/*.png --title Ferrets
+```
+
+  You may also upload to an existing stream by passing `--stream`:
+
+```
+$ up simon.png --stream c7WwhIwSl6Y
+```
 
 ## Tips
 
