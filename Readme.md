@@ -3,6 +3,9 @@
 
   The cloudup cli `up(1)` allows you to upload files to the cloud with ease.
 
+  ![Cloudup cli](https://i.cloudup.com/tpBkHd8URl.gif)
+  ![Cloudup interactive mode](https://i.cloudup.com/m8K8vVohPm.gif)
+
 ## Installation
 
 ```
@@ -144,6 +147,14 @@ $ up copy australia
 ```
 $ up open australia
 ```
+
+### Interactive Mode
+
+  The `-i` or `--interactive` flag may be used to list streams in an
+  interactive list using the arrow keys to traverse the list. Pressing
+  _return_ will open the stream or item in your default browser.
+
+  ![interactive mode](https://i.cloudup.com/m8K8vVohPm.gif)
 
 ## Tips
 
