@@ -11,7 +11,7 @@
   Install with npm:
 
 ```
-$ npm install -g cloudup
+$ npm install -g up
 ```
 
   Authenticate:
