@@ -10,6 +10,7 @@ var pkg = require('../package');
 var thumb = require('osthumb');
 var copy = require('cliparoo');
 var path = require('path');
+var head = require('head');
 var basename = path.basename;
 var uid = require('uid2');
 var up = require('..');
@@ -91,9 +92,21 @@ if (!files.length) {
   process.stdin.pipe(out);
   process.stdin.resume();
   process.stdin.on('end', function(){
-    var file = program.filename || out.path;
-    var title = 'Untitled' == program.title ? null : program.title;
-    var item = stream.item({ title: title, filename: file });
+    var filename = program.filename;
+    var title = '' == program.title ? null : program.title;
+    
+    var opts = { title: title };
+
+    if (textual(out.path)) {
+      filename = filename || 'untitled.txt';
+      opts.mime = 'text/plain';
+    }
+
+    filename = filename || out.path;
+    opts.filename = filename;
+
+    var item = stream.item(opts);
+    
     item.file(out.path);
     stream.save(function(err){
       if (err) throw err;
@@ -125,6 +138,20 @@ stream.on('error', function(err){
 stream.save(function(err){
   if (err) throw err;
 });
+
+/**
+ * Check if `file` looks textual.
+ */
+
+function textual(file) {
+  var buf = head(file, 24 * 1024);
+  
+  for (var i = 0; i < buf.length; i++) {
+    if (0 == buf[i]) return false;
+  }
+
+  return true;
+}
 
 /**
  * Check if `str` is a url.
