@@ -88,30 +88,36 @@ var reporter = new Reporter(stream, {
 // stdin
 
 if (!files.length) {
-  var out = fs.createWriteStream('/tmp/up-' + uid(10));
-  process.stdin.resume();
-  process.stdin.pipe(out);
-  process.stdin.on('end', function(){
-    var filename = program.filename;
-    var title = '' == program.title ? null : program.title;
+  if (process.stdin.isTTY) {
+    // user simply typed `up`... display "help" page
+    program.help();
+  } else {
+    // upload whatever comes through stdin as a stream
+    var out = fs.createWriteStream('/tmp/up-' + uid(10));
+    process.stdin.resume();
+    process.stdin.pipe(out);
+    process.stdin.on('end', function(){
+      var filename = program.filename;
+      var title = '' == program.title ? null : program.title;
 
-    var opts = { title: title };
+      var opts = { title: title };
 
-    if (textual(out.path)) {
-      filename = filename || 'untitled.txt';
-      opts.mime = 'text/plain';
-    }
+      if (textual(out.path)) {
+        filename = filename || 'untitled.txt';
+        opts.mime = 'text/plain';
+      }
 
-    filename = filename || out.path;
-    opts.filename = filename;
+      filename = filename || out.path;
+      opts.filename = filename;
 
-    var item = stream.item(opts);
+      var item = stream.item(opts);
 
-    item.file(out.path);
-    stream.save(function(err){
-      if (err) throw err;
+      item.file(out.path);
+      stream.save(function(err){
+        if (err) throw err;
+      });
     });
-  });
+  }
   return;
 }
 
