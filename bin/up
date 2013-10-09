@@ -94,7 +94,7 @@ if (!files.length) {
   process.stdin.on('end', function(){
     var filename = program.filename;
     var title = '' == program.title ? null : program.title;
-    
+
     var opts = { title: title };
 
     if (textual(out.path)) {
@@ -106,7 +106,7 @@ if (!files.length) {
     opts.filename = filename;
 
     var item = stream.item(opts);
-    
+
     item.file(out.path);
     stream.save(function(err){
       if (err) throw err;
@@ -145,7 +145,7 @@ stream.save(function(err){
 
 function textual(file) {
   var buf = head(file, 24 * 1024);
-  
+
   for (var i = 0; i < buf.length; i++) {
     if (0 == buf[i]) return false;
   }
