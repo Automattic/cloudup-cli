@@ -1,4 +1,10 @@
 
+0.5.1 / 2013-10-09 
+==================
+
+ * resume stdin before calling .pipe()
+ * display "help" when no arguments are passed and not piping
+
 0.5.0 / 2013-09-05 
 ==================
 
