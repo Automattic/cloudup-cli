@@ -89,8 +89,8 @@ var reporter = new Reporter(stream, {
 
 if (!files.length) {
   var out = fs.createWriteStream('/tmp/up-' + uid(10));
-  process.stdin.pipe(out);
   process.stdin.resume();
+  process.stdin.pipe(out);
   process.stdin.on('end', function(){
     var filename = program.filename;
     var title = '' == program.title ? null : program.title;
