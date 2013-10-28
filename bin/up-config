@@ -36,7 +36,7 @@ program.prompt('  Username: ', function(user){
 
     client.requestToken(appid, function(err, tok){
       if (err) throw err;
-      
+
       up.saveConfig({
         token: tok,
         user: user
