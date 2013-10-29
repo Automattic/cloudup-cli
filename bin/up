@@ -127,9 +127,9 @@ files.forEach(function(file){
   var ind = Date.now() + ++index;
   var item = stream.item({ index: ind });
   if (isUrl(file)) return item.link(file);
-  var i = item.file(file);
-  if (isCode(i._file)) return;
-  thumb(i._file, { width: size, height: size }, function(err, path){
+  item.file(file);
+  if (isCode(file)) return;
+  thumb(file, { width: size, height: size }, function(err, path){
     if (err || !path) return;
     i.thumb(path);
   });
