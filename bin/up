@@ -131,7 +131,7 @@ files.forEach(function(file){
   if (isCode(file)) return;
   thumb(file, { width: size, height: size }, function(err, path){
     if (err || !path) return;
-    i.thumb(path);
+    item.thumb(path);
   });
 });
 
