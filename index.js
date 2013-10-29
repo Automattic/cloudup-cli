@@ -4,15 +4,17 @@
  * Module dependencies.
  */
 
+var fs = require('fs');
+var path = require('path');
+var osenv = require('osenv');
 var Cloudup = require('cloudup-client');
 var pkg = require('./package');
-var fs = require('fs');
 
 /**
  * Configuration path.
  */
 
-exports.configPath = process.env.HOME + '/.cloudup.json';
+exports.configPath = path.resolve(osenv.home(), '.cloudup.json');
 
 /**
  * Create a client with `opts`.

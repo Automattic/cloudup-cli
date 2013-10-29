@@ -24,7 +24,8 @@
     "bytes": "~0.2.1",
     "cliparoo": "1.0.0",
     "is-code": "~1.1.0",
-    "head": "~1.0.0"
+    "head": "~1.0.0",
+    "osenv": "~0.0.3"
   },
   "devDependencies": {
     "mocha": "*",
