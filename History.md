@@ -1,4 +1,14 @@
 
+0.5.2 / 2013-10-28
+==================
+
+ * fixed node v0.10.x exit bug (process exits cleanly now after upload)
+ * switch to TooTallNate/ansi.js for ANSI escape codes
+ * ensure that nobody using node < v0.6.0 can install (not supported)
+ * fix uploading URL type items from the command line
+ * use osenv.home() for the HOME dir (beginnings of Windows compat)
+ * various other minor lint and whitespace fixes
+
 0.5.1 / 2013-10-09
 ==================
 
