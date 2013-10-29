@@ -38,9 +38,11 @@ exports.client = function(opts){
  */
 
 exports.readConfig = function(){
+  var json, obj;
+
   // read
   try {
-    var json = fs.readFileSync(exports.configPath, 'utf8');
+    json = fs.readFileSync(exports.configPath, 'utf8');
   } catch (err) {
     console.error('\n  Failed to load configuration.');
     console.error('  Execute: `up config` to get started!\n');
@@ -49,10 +51,10 @@ exports.readConfig = function(){
 
   // parse
   try {
-    var obj = JSON.parse(json);
+    obj = JSON.parse(json);
   } catch (err) {
-    console.error('\n  Failed to parse ' + exports.configPath + '\n'); 
-    process.exit(1);   
+    console.error('\n  Failed to parse ' + exports.configPath + '\n');
+    process.exit(1);
   }
 
   // validate
@@ -74,5 +76,5 @@ exports.readConfig = function(){
 
 exports.saveConfig = function(obj){
   var json = JSON.stringify(obj, null, 2);
-  fs.writeFileSync(exports.configPath, json);
+  fs.writeFileSync(exports.configPath + '\n', json);
 };
