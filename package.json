@@ -32,6 +32,9 @@
     "should": "*",
     "better-assert": "*"
   },
+  "engines": {
+    "node": ">=0.6.0"
+  },
   "bin": {
     "up": "bin/up",
     "up-streams": "bin/up-streams",
