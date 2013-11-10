@@ -77,6 +77,6 @@ exports.readConfig = function(){
  */
 
 exports.saveConfig = function(obj){
-  var json = JSON.stringify(obj, null, 2);
-  fs.writeFileSync(exports.configPath + '\n', json);
+  var json = JSON.stringify(obj, null, 2) + '\n';
+  fs.writeFileSync(exports.configPath, json);
 };
