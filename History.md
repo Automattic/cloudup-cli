@@ -1,4 +1,10 @@
 
+0.6.0 / 2013-11-10
+==================
+
+ * console: move the cursor relative to the origin
+ * index: fix saveConfig() filename saving with a newline
+
 0.5.2 / 2013-10-28
 ==================
 
