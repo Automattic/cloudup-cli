@@ -1,4 +1,10 @@
 
+0.6.2 / 2014-01-28
+==================
+
+  * package: update "cloudup-client" to v0.3.1
+  * package: add "preferGlobal: true" flag
+
 0.6.1 / 2014-01-21
 ==================
 
