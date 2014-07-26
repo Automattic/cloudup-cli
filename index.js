@@ -79,4 +79,7 @@ exports.readConfig = function(){
 exports.saveConfig = function(obj){
   var json = JSON.stringify(obj, null, 2) + '\n';
   fs.writeFileSync(exports.configPath, json);
+  // chmod the config file to rw for owner only to prevent other users from
+  // stealing the token
+  fs.chmodSync(exports.configPath, 0600);
 };
