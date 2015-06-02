@@ -1,4 +1,17 @@
 
+0.7.0 / 2015-06-02
+==================
+
+  * index: remove leading space from "User-Agent" header
+  * index: `chmod` the config file to `rw` for user only (#45, @mmalecki)
+  * config: add file piping support to `up config`
+  * config: refactor to use "co-prompt"
+  * package: add MIT license
+  * package: require node >= v0.8.0
+  * package: update all the deps
+  * package: organize deps array
+  * package: add "repository" field
+
 0.6.2 / 2014-01-28
 ==================
 
