@@ -7,6 +7,7 @@
 var up = require('..');
 var co = require('co');
 var prompt = require('co-prompt');
+var readline = require('readline');
 var thunkify = require('thunkify');
 
 // app id
@@ -22,9 +23,24 @@ console.log('  and is not stored locally. Subsequent operations');
 console.log('  use the auth token generated from this process.');
 console.log('');
 
+var rli;
 co(function* (){
-  var user = yield prompt('  Username: ');
-  var pass = yield prompt.password('  Password: ');
+  var user, pass;
+
+  if (process.stdin.isTTY) {
+    user = yield prompt('  Username: ');
+    pass = yield prompt.password('  Password: ');
+  } else {
+    // user is piping a file of credentials
+    rli = readline.createInterface({ input: process.stdin });
+    var readLine = function (fn) {
+      rli.once('line', function(line){
+        fn(null, line);
+      });
+    };
+    user = yield readLine;
+    pass = yield readLine;
+  }
 
   var client = up.client({
     user: user,
