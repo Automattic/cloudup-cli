@@ -4,10 +4,8 @@
  * Module dependencies.
  */
 
-var Cloudup = require('cloudup-client');
 var program = require('commander');
 var up = require('..');
-var s = require('printf');
 
 // options
 
