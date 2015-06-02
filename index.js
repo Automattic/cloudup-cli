@@ -26,7 +26,7 @@ exports.configPath = path.resolve(osenv.home(), '.cloudup.json');
 
 exports.client = function(opts){
   opts = opts || {};
-  opts.useragent = ' cloudup-cli/' + pkg.version;
+  opts.useragent = 'cloudup-cli/' + pkg.version;
   if (process.env.UP_API_URL) opts.url = process.env.UP_API_URL;
   if (process.env.UP_CLOUDUP_URL) opts.cloudupUrl = process.env.UP_CLOUDUP_URL;
   return new Cloudup(opts);
