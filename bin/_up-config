@@ -1,0 +1,46 @@
+#!/usr/bin/env node --harmony-generators
+
+/**
+ * Module dependencies.
+ */
+
+var up = require('..');
+var co = require('co');
+var prompt = require('co-prompt');
+var thunkify = require('thunkify');
+
+// app id
+
+var appid = process.env.UP_APP_ID || 'arKRYoze02T';
+
+// setup
+
+console.log('');
+console.log('  Cloudup up(1) one-time configuration requires your');
+console.log('  password, however it is transfered via https');
+console.log('  and is not stored locally. Subsequent operations');
+console.log('  use the auth token generated from this process.');
+console.log('');
+
+co(function* (){
+  var user = yield prompt('  Username: ');
+  var pass = yield prompt.password('  Password: ');
+
+  var client = up.client({
+    user: user,
+    pass: pass
+  });
+
+  client.requestToken = thunkify(client.requestToken);
+
+  var tok = yield client.requestToken(appid);
+
+  up.saveConfig({
+    token: tok,
+    user: user
+  });
+
+  console.log('\n  Configuration saved to ' + up.configPath + '\n');
+})(function (err) {
+  if (err) throw err;
+});

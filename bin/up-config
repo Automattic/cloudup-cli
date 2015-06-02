@@ -1,46 +1,4 @@
 #!/usr/bin/env node
 
-/**
- * Module dependencies.
- */
-
-var program = require('commander');
-var up = require('..');
-
-// options
-
-program
-  .parse(process.argv);
-
-// app id
-
-var appid = process.env.UP_APP_ID || 'arKRYoze02T';
-
-// setup
-
-console.log('');
-console.log('  Cloudup up(1) one-time configuration requires your');
-console.log('  password, however it is transfered via https');
-console.log('  and is not stored locally. Subsequent operations');
-console.log('  use the auth token generated from this process.');
-console.log('');
-
-program.prompt('  Username: ', function(user){
-  program.password('  Password: ', '*', function(pass){
-    var client = up.client({
-      user: user,
-      pass: pass
-    });
-
-    client.requestToken(appid, function(err, tok){
-      if (err) throw err;
-
-      up.saveConfig({
-        token: tok,
-        user: user
-      });
-
-      console.log('\n  Configuration saved to ' + up.configPath + '\n');
-    });
-  });
-});
+require('gnode');
+require('./_up-config');
