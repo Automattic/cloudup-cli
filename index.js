@@ -81,5 +81,5 @@ exports.saveConfig = function(obj){
   fs.writeFileSync(exports.configPath, json);
   // chmod the config file to rw for owner only to prevent other users from
   // stealing the token
-  fs.chmodSync(exports.configPath, 0600);
+  fs.chmodSync(exports.configPath, parseInt('0600', 8));
 };
