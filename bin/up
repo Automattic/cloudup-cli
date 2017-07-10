@@ -10,7 +10,6 @@ var pkg = require('../package');
 var thumb = require('osthumb');
 var copy = require('cliparoo');
 var path = require('path');
-var head = require('head');
 var basename = path.basename;
 var uid = require('uid2');
 var up = require('..');
@@ -150,12 +149,15 @@ stream.save(function(err){
  */
 
 function textual(file) {
-  var buf = head(file, 24 * 1024);
-
+  var fd = fs.openSync(path, 'r');
+  var size = fs.statSync(path);
+  var len = Math.min(size, 24 * 1024)
+  var buffer = new Buffer(len);
+  fs.readSync(fd, buffer, 0, len, 0);
+  fs.closeSync(fd);
   for (var i = 0; i < buf.length; i++) {
     if (0 == buf[i]) return false;
   }
-
   return true;
 }
 

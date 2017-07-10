@@ -1,6 +1,6 @@
 {
   "name": "up",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "cloudup command-line executable",
   "keywords": [
     "cloudup",
@@ -13,12 +13,11 @@
     "ansi": "~0.3.0",
     "bytes": "~2.1.0",
     "cliparoo": "1.0.0",
-    "cloudup-client": "0.3.2",
+    "cloudup-client": "~0.3.2",
     "co": "3.1.0",
     "co-prompt": "1.0.0",
     "commander": "1.3.2",
     "gnode": "0.1.1",
-    "head": "~1.0.0",
     "is-code": "~1.1.0",
     "max-component": "~1.0.0",
     "ms": "0.7.1",
