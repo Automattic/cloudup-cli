@@ -11,7 +11,7 @@
   Install with npm:
 
 ```
-$ npm install -g up
+$ npm install -g Automattic/cloudup-cli
 ```
 
   Authenticate:
